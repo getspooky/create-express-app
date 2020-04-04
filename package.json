@@ -12,11 +12,13 @@
   },
   "author": "Yasser Ameur El Idrissi",
   "license": "MIT",
+  "contributors": [],
   "bugs": {
     "url": "https://github.com/getspooky/create-express-app/issues"
   },
   "homepage": "https://github.com/getspooky/create-express-app#readme",
   "devDependencies": {
-    "eslint": "^6.8.0"
+    "eslint": "^6.8.0",
+    "prettier": "^2.0.2"
   }
 }
