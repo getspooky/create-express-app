@@ -1,0 +1,19 @@
+{
+  "name": "create-express-app",
+  "version": "1.0.0",
+  "description": "Get Express.js projects ready fast by running one command",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/getspooky/create-express-app.git"
+  },
+  "author": "Yasser Ameur El Idrissi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/getspooky/create-express-app/issues"
+  },
+  "homepage": "https://github.com/getspooky/create-express-app#readme"
+}
