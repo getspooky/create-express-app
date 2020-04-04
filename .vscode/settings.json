@@ -1,0 +1,8 @@
+{
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
+  "editor.formatOnSave": true,
+  "eslint.enable": true,
+  "javascript.format.enable": false,
+  "editor.snippetSuggestions": "top"
+}
