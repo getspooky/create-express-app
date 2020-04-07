@@ -1,0 +1,33 @@
+{
+  "name": "create-express-app",
+  "version": "1.0.0",
+  "description": "Create Express application",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/getspooky/create-express-app.git",
+    "directory": "packages/create-express-app"
+  },
+  "engines": {
+    "node": ">=8"
+  },
+  "bugs": {
+    "url": "https://github.com/getspooky/create-express-app/issues"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Yasser Ameur El Idrissi",
+  "contributors": [],
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4.0.0",
+    "child_process": "^1.0.2",
+    "commander": "^5.0.0",
+    "compare-versions": "^3.6.0",
+    "dns": "^0.2.2",
+    "fs-extra": "^9.0.0",
+    "inquirer": "^7.1.0",
+    "os": "^0.1.1"
+  }
+}
