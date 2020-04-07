@@ -4,7 +4,7 @@
   "description": "Get Express.js projects ready fast by running one command",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
