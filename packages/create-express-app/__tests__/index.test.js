@@ -21,4 +21,17 @@ describe('Testing create-express-app package', function () {
       expect(error).toBeTruthy();
     });
   });
+
+  it('should display message if the npm is compatible', function () {
+    return createExpressApp.checkNodeVersion('3.6.0').then((response) => {
+      expect(response).toEqual('Node version compatible');
+    });
+  });
+
+  it('should throw error if the version is not compatible', function () {
+    return createExpressApp.checkNodeVersion('7.14.4').catch((error) => {
+      expect(error).toBeTruthy();
+    });
+  });
+
 });

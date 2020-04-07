@@ -11,8 +11,12 @@
 
 const path = require('path');
 const chalk = require('chalk');
-const { Command } = require('commander');
-const { exec } = require('child_process');
+const {
+  Command
+} = require('commander');
+const {
+  exec
+} = require('child_process');
 const compareVersions = require('compare-versions');
 const dns = require('dns');
 const inquirer = require('inquirer');
@@ -37,16 +41,42 @@ exports.checkNodeVersion = function (minimalNodeVersion) {
         reject(
           new Error(
             'You are running Node ' +
-              nodeVersion +
-              '.\n' +
-              'Create Express App requires Node ' +
-              minimalNodeVersion +
-              ' or higher. \n' +
-              'Please update your version of Node.'
+            nodeVersion +
+            '.\n' +
+            'Create Express App requires Node ' +
+            minimalNodeVersion +
+            ' or higher. \n' +
+            'Please update your version of Node.'
           )
         );
       }
       resolve('Node version compatible');
+    });
+  });
+};
+
+/**
+ * @export
+ * @desc Check NPM version
+ * @function
+ * @name checkNPMVersion
+ * @param {Number} minimalNPMVersion
+ * @returns {Promise}
+ */
+exports.checkNPMVersion = function (minimalNPMVersion) {
+  return new Promise((resolve, reject) => {
+    exec('npm --version', (err, stdout) => {
+      const npmVersion = stdout.trim();
+      if (err) {
+        reject(new TypeError(err));
+      } else if (compareVersions(npmVersion, minimalNodeVersion) === -1) {
+        reject(
+          new Error(
+            `You need NPM v${minimalNPMVersion} or above but you have v${npmVersion}`,
+          ),
+        );
+      }
+      resolve('NPM version compatible');
     });
   });
 };
