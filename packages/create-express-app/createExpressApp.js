@@ -71,7 +71,7 @@ exports.checkNPMVersion = function (minimalNPMVersion) {
         reject(new TypeError(err));
       } else if (compareVersions(npmVersion, minimalNodeVersion) === -1) {
         reject(
-          new Error(
+          new TypeError(
             `You need NPM v${minimalNPMVersion} or above but you have v${npmVersion}`,
           ),
         );
@@ -80,3 +80,33 @@ exports.checkNPMVersion = function (minimalNPMVersion) {
     });
   });
 };
+
+
+/**
+ * @export
+ * @desc Check GitHub repository is cloned.
+ * @function
+ * @name checkIfRepositoryIsCloned
+ * @returns {Promise}
+ */
+exports.checkIfRepositoryIsCloned = function () {
+  return new Promise((resolve, reject) => {
+    exec('git remote -v', (err, stdout) => {
+      if (err) {
+        reject(new TypeError(err));
+      }
+
+      const isRepositoryCloned =
+        stdout.split(/\n/)
+        .map(line => line.trim())
+        .filter(line => line.startsWith('origin'))
+        .filter(line => new RegExp(/create-express-app\.git/).test(line))
+
+      if (!isRepositoryCloned) {
+        reject(new TypeError('create-express-app repository not found'));
+      }
+
+      resolve(isRepositoryCloned.length);
+    });
+  });
+}

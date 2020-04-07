@@ -34,4 +34,10 @@ describe('Testing create-express-app package', function () {
     });
   });
 
+  it('should return true if the repository is already cloned from github', function () {
+    return createExpressApp.checkIfRepositoryIsCloned().then(response => {
+      expect(response).toBe(2);
+    });
+  });
+
 });
