@@ -9,6 +9,9 @@
 
 const createExpressApp = require('../createExpressApp');
 
+// mocking functions.
+createExpressApp.initGitRepository = jest.fn(() => Promise.resolve('Git initialization'));
+
 describe('Testing create-express-app package', function () {
   it('should display message if the version is compatible', function () {
     return createExpressApp.checkNodeVersion('8.1.0').then((response) => {
@@ -22,14 +25,14 @@ describe('Testing create-express-app package', function () {
     });
   });
 
-  it('should display message if the npm is compatible', function () {
-    return createExpressApp.checkNodeVersion('3.6.0').then((response) => {
-      expect(response).toEqual('Node version compatible');
+  it('should display message if the NPM is compatible', function () {
+    return createExpressApp.checkNPMVersion('3.6.0').then((response) => {
+      expect(response).toEqual('NPM version compatible');
     });
   });
 
-  it('should throw error if the version is not compatible', function () {
-    return createExpressApp.checkNodeVersion('7.14.4').catch((error) => {
+  it('should throw error if the NPM version is not compatible', function () {
+    return createExpressApp.checkNPMVersion('7.14.4').catch((error) => {
       expect(error).toBeTruthy();
     });
   });
@@ -42,7 +45,7 @@ describe('Testing create-express-app package', function () {
 
   it('should init Git repository', function () {
     return createExpressApp.initGitRepository().then(response => {
-      expect(response).toBeTruthy();
+      expect(response).toEqual('Git initialization');
     });
   });
 
