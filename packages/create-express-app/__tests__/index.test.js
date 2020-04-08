@@ -10,8 +10,12 @@
 const createExpressApp = require('../createExpressApp');
 
 // mocking functions.
-createExpressApp.initGitRepository = jest.fn(() => Promise.resolve('Git initialization'));
-createExpressApp.installPackages = jest.fn(() => Promise.resolve('Packages installed'));
+createExpressApp.initGitRepository = jest.fn(() =>
+  Promise.resolve('Git initialization')
+);
+createExpressApp.installPackages = jest.fn(() =>
+  Promise.resolve('Packages installed')
+);
 
 describe('Testing create-express-app package', function () {
   it('should display message if the version is compatible', function () {
@@ -39,22 +43,28 @@ describe('Testing create-express-app package', function () {
   });
 
   it('should return true if the repository is already cloned from github', function () {
-    return createExpressApp.checkIfRepositoryIsCloned().then(response => {
+    return createExpressApp.checkIfRepositoryIsCloned().then((response) => {
       expect(response).toBe(2);
     });
   });
 
   it('should init Git repository', function () {
-    return createExpressApp.initGitRepository().then(response => {
+    return createExpressApp.initGitRepository().then((response) => {
       expect(response).toEqual('Git initialization');
     });
   });
 
-
   it('should init Install packages using NPM or Yarn strategy', function () {
-    return createExpressApp.installPackages('npm').then(response => {
+    return createExpressApp.installPackages('npm').then((response) => {
       expect(response).toEqual('Packages installed');
     });
   });
 
+  it('should accept create-express-app project name ', function () {
+    return createExpressApp
+      .checkAppName('create-express-app')
+      .then((response) => {
+        expect(response).toEqual('create-express-app accepted');
+      });
+  });
 });

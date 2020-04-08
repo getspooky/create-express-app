@@ -11,13 +11,10 @@
 
 const path = require('path');
 const chalk = require('chalk');
-const {
-  Command
-} = require('commander');
-const {
-  exec
-} = require('child_process');
+const { Command } = require('commander');
+const { exec } = require('child_process');
 const compareVersions = require('compare-versions');
+const validateProjectName = require('validate-npm-package-name');
 const dns = require('dns');
 const inquirer = require('inquirer');
 const fs = require('fs-extra');
@@ -41,12 +38,12 @@ exports.checkNodeVersion = function (minimalNodeVersion) {
         reject(
           new Error(
             'You are running Node ' +
-            nodeVersion +
-            '.\n' +
-            'Create Express App requires Node ' +
-            minimalNodeVersion +
-            ' or higher. \n' +
-            'Please update your version of Node.'
+              nodeVersion +
+              '.\n' +
+              'Create Express App requires Node ' +
+              minimalNodeVersion +
+              ' or higher. \n' +
+              'Please update your version of Node.'
           )
         );
       }
@@ -72,15 +69,14 @@ exports.checkNPMVersion = function (minimalNPMVersion) {
       } else if (compareVersions(npmVersion, minimalNPMVersion) === -1) {
         reject(
           new TypeError(
-            `You need NPM v${minimalNPMVersion} or above but you have v${npmVersion}`,
-          ),
+            `You need NPM v${minimalNPMVersion} or above but you have v${npmVersion}`
+          )
         );
       }
       resolve('NPM version compatible');
     });
   });
 };
-
 
 /**
  * @export
@@ -96,11 +92,11 @@ exports.checkIfRepositoryIsCloned = function () {
         reject(new TypeError(err));
       }
 
-      const isRepositoryCloned =
-        stdout.split(/\n/)
-        .map(line => line.trim())
-        .filter(line => line.startsWith('origin'))
-        .filter(line => new RegExp(/create-express-app\.git/).test(line))
+      const isRepositoryCloned = stdout
+        .split(/\n/)
+        .map((line) => line.trim())
+        .filter((line) => line.startsWith('origin'))
+        .filter((line) => new RegExp(/create-express-app\.git/).test(line));
 
       if (!isRepositoryCloned) {
         reject(new TypeError('create-express-app repository not found'));
@@ -109,7 +105,7 @@ exports.checkIfRepositoryIsCloned = function () {
       resolve(isRepositoryCloned.length);
     });
   });
-}
+};
 
 /**
  * @export
@@ -128,7 +124,7 @@ exports.initGitRepository = function () {
       }
     });
   });
-}
+};
 
 /**
  * @export
@@ -141,7 +137,6 @@ exports.initGitRepository = function () {
 exports.installPackages = function (strategy = 'npm') {
   return new Promise((resolve, reject) => {
     exec(`${strategy} install`, (err, stdout) => {
-
       console.log('Installing packages. This might take a couple of minutes.');
 
       if (err) {
@@ -149,7 +144,28 @@ exports.installPackages = function (strategy = 'npm') {
       } else {
         resolve(stdout);
       }
-
     });
   });
-}
+};
+
+/**
+ * @export
+ * @desc Check create-express-app name.
+ * @function
+ * @name checkAppName
+ * @param {string} appName
+ * @returns {Promise}
+ */
+exports.checkAppName = function (appName) {
+  return new Promise((resolve, reject) => {
+    const validationResult = validateProjectName(appName);
+    if (!validationResult.validForNewPackages) {
+      reject(
+        `Cannot create a project named ${chalk.green(
+          `"${appName}"`
+        )} because of npm naming restrictions:\n`
+      );
+    }
+    resolve(`${appName} accepted`);
+  });
+};
