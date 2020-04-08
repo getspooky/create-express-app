@@ -69,7 +69,7 @@ exports.checkNPMVersion = function (minimalNPMVersion) {
       const npmVersion = stdout.trim();
       if (err) {
         reject(new TypeError(err));
-      } else if (compareVersions(npmVersion, minimalNodeVersion) === -1) {
+      } else if (compareVersions(npmVersion, minimalNPMVersion) === -1) {
         reject(
           new TypeError(
             `You need NPM v${minimalNPMVersion} or above but you have v${npmVersion}`,
@@ -126,6 +126,30 @@ exports.initGitRepository = function () {
       } else {
         resolve(stdout);
       }
+    });
+  });
+}
+
+/**
+ * @export
+ * @desc Install Packages using NPM.
+ * @function
+ * @name installPackages
+ * @param {string} strategy
+ * @returns {Promise}
+ */
+exports.installPackages = function (strategy = 'npm') {
+  return new Promise((resolve, reject) => {
+    exec(`${strategy} install`, (err, stdout) => {
+
+      console.log('Installing packages. This might take a couple of minutes.');
+
+      if (err) {
+        reject(new TypeError(err));
+      } else {
+        resolve(stdout);
+      }
+
     });
   });
 }

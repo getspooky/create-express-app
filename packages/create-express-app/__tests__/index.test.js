@@ -11,6 +11,7 @@ const createExpressApp = require('../createExpressApp');
 
 // mocking functions.
 createExpressApp.initGitRepository = jest.fn(() => Promise.resolve('Git initialization'));
+createExpressApp.installPackages = jest.fn(() => Promise.resolve('Packages installed'));
 
 describe('Testing create-express-app package', function () {
   it('should display message if the version is compatible', function () {
@@ -46,6 +47,13 @@ describe('Testing create-express-app package', function () {
   it('should init Git repository', function () {
     return createExpressApp.initGitRepository().then(response => {
       expect(response).toEqual('Git initialization');
+    });
+  });
+
+
+  it('should init Install packages using NPM or Yarn strategy', function () {
+    return createExpressApp.installPackages('npm').then(response => {
+      expect(response).toEqual('Packages installed');
     });
   });
 
