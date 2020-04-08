@@ -40,4 +40,10 @@ describe('Testing create-express-app package', function () {
     });
   });
 
+  it('should init Git repository', function () {
+    return createExpressApp.initGitRepository().then(response => {
+      expect(response).toBeTruthy();
+    });
+  });
+
 });

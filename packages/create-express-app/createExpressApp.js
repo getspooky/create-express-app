@@ -110,3 +110,22 @@ exports.checkIfRepositoryIsCloned = function () {
     });
   });
 }
+
+/**
+ * @export
+ * @desc Init Git repository.
+ * @function
+ * @name initGitRepository
+ * @returns {Promise}
+ */
+exports.initGitRepository = function () {
+  return new Promise((resolve, reject) => {
+    exec('git init', (err, stdout) => {
+      if (err) {
+        reject(new TypeError(err));
+      } else {
+        resolve(stdout);
+      }
+    });
+  });
+}
