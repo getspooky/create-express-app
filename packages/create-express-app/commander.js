@@ -16,7 +16,7 @@ const {
   checkNPMVersion,
   checkYarnVersion,
   checkNodeVersion,
-  initExpressApp
+  initExpressApp,
 } = require('./createExpressApp');
 
 const {
@@ -30,29 +30,38 @@ program.version(version);
 const versionCompatibility = {
   npm: '3.6.0',
   yarn: '1.12.0',
-  node: '8.1.0'
+  node: '8.1.0',
 };
 
-program.command('init <projectName>')
+program
+  .command('init <projectName>')
   .alias('ci')
   .description('init create-express-app project')
-  .option("-d, --directory <project-directory>", 'Setup the default folder structures to be used in the Project')
+  .option(
+    '-d, --directory <project-directory>',
+    'Setup the default folder structures to be used in the Project'
+  )
   .action(function (projectName, action) {
     Promise.all([
       checkNPMVersion(versionCompatibility.npm),
       checkYarnVersion(versionCompatibility.yarn),
       checkNodeVersion(versionCompatibility.node),
       initExpressApp(projectName, action['directory']),
-    ]).catch(err => {
+    ]).catch((err) => {
       console.log(chalk.red(err.message));
       console.log(
         'If you feel you have found a security issue or concern with create-express-app' +
         '\n' +
         'Please use the following link to create a new issue: '
       );
-      console.log('Link : ' + chalk.underline.blue('https://github.com/getspooky/create-express-app/issues'));
+      console.log(
+        'Link : ' +
+        chalk.underline.blue(
+          'https://github.com/getspooky/create-express-app/issues'
+        )
+      );
       killProcess();
-    })
+    });
   });
 
 program.parse(process.argv);
