@@ -20,6 +20,9 @@ const validateProjectName = require('validate-npm-package-name');
 const fs = require('fs-extra');
 const os = require('os');
 
+const supportedTemplates = ['es5', 'typescript', 'es6+'];
+const supportedFeatures = ['Unit Testing', 'E2E Testing', 'ESLint', 'Prettier'];
+
 /**
  * @export
  * @desc Check Node.js version
@@ -207,14 +210,19 @@ exports.checkAppName = function (appName) {
  * @returns {Promise|exit}
  */
 exports.initExpressApp = function (appName, directory) {
-  if(typeof directory === 'undefined') {
+  if (typeof directory === 'undefined') {
     console.log(chalk.red('Please specify the project directory'));
     console.log(
       `Run ${chalk.cyan(`--help`)} to see all options.`
     );
     module.exports.killProcess();
   }
-  return Promise.all([checkAppName(appName)]);
+
+  return Promise.all([
+    module.exports.checkAppName(appName),
+    module.exports.createExpressTemplate(directory)
+  ]);
+
 }
 
 /**
@@ -222,12 +230,20 @@ exports.initExpressApp = function (appName, directory) {
  * @desc Create Express Template.
  * @function
  * @name createExpressTemplate
- * @param {string} appTemplate
  * @param {string} directory
  * @returns {Promise}
  */
-exports.createExpressTemplate = function(appTemplate, directory) {
-
+exports.createExpressTemplate = function (directory) {
+  return inquirer
+    .prompt([{
+      type: 'list',
+      name: 'template',
+      message: 'Please specify a template for the created project',
+      choices: supportedTemplates
+    }])
+    .then(answers => {
+      // 
+    });
 }
 
 /**
