@@ -169,3 +169,15 @@ exports.checkAppName = function (appName) {
     resolve(`${appName} accepted`);
   });
 };
+
+/**
+ * @export
+ * @desc Kill Current Process.
+ * @function
+ * @name killProcess
+ * @returns {Promise}
+ */
+exports.killProcess = function() {
+  console.log(chalk.blue('\n\nDone!\n'));
+  process.exit(0);
+}
