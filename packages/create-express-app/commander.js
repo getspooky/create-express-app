@@ -9,7 +9,7 @@
 
 const chalk = require('chalk');
 const { Command } = require('commander');
-const { killProcess , checkNPMVersion } = require('./createExpressApp');
+const { killProcess , checkNPMVersion , checkYarnVersion } = require('./createExpressApp');
 
 const { version ,name } = require('./package.json');
 const program = new Command(name);
@@ -29,6 +29,7 @@ program.command('init <projectName>')
   .action(function(projectName, action) {
     Promise.all([
        checkNPMVersion(versionCompatibility.npm),
+       checkYarnVersion(versionCompatibility.yarn),
     ]).catch(err => {
       console.log(chalk.red(err.message));
       console.log(
