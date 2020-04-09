@@ -11,12 +11,10 @@
 
 const path = require('path');
 const chalk = require('chalk');
-const { Command } = require('commander');
+const inquirer = require('inquirer');
 const { exec } = require('child_process');
 const compareVersions = require('compare-versions');
 const validateProjectName = require('validate-npm-package-name');
-const dns = require('dns');
-const inquirer = require('inquirer');
 const fs = require('fs-extra');
 const os = require('os');
 
@@ -175,9 +173,9 @@ exports.checkAppName = function (appName) {
  * @desc Kill Current Process.
  * @function
  * @name killProcess
- * @returns {Promise}
+ * @returns {void}
  */
 exports.killProcess = function() {
-  console.log(chalk.blue('\n\nDone!\n'));
+  console.log(chalk.blue('Done!'));
   process.exit(0);
 }
