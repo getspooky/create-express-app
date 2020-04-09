@@ -17,6 +17,10 @@ createExpressApp.installPackages = jest.fn(() =>
   Promise.resolve('Packages installed')
 );
 
+createExpressApp.initExpressApp = jest.fn(() =>
+  Promise.resolve(0)
+);
+
 describe('Testing create-express-app package', function () {
   it('should display message if the version is compatible', function () {
     return createExpressApp.checkNodeVersion('8.1.0').then((response) => {
@@ -73,4 +77,11 @@ describe('Testing create-express-app package', function () {
         expect(response).toEqual('create-express-app accepted');
       });
   });
+
+  it('should exit the program if the directory name is undefined', function(){
+     createExpressApp.initExpressApp('create-express-app',undefined).then((response)=>{
+       expect(response).toEqual(0);
+     });
+  });
+
 });

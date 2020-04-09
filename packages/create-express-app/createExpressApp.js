@@ -176,7 +176,7 @@ exports.installPackages = function (strategy = 'npm') {
 };
 
 /**
- * @export
+ * @exports
  * @desc Check create-express-app name.
  * @function
  * @name checkAppName
@@ -203,12 +203,31 @@ exports.checkAppName = function (appName) {
  * @function
  * @name initExpressApp
  * @param {string} appName
+ * @param {string} directory
+ * @returns {Promise|exit}
+ */
+exports.initExpressApp = function (appName, directory) {
+  if(typeof directory === 'undefined') {
+    console.log(chalk.red('Please specify the project directory'));
+    console.log(
+      `Run ${chalk.cyan(`--help`)} to see all options.`
+    );
+    module.exports.killProcess();
+  }
+  return Promise.all([checkAppName(appName)]);
+}
+
+/**
+ * @exports
+ * @desc Create Express Template.
+ * @function
+ * @name createExpressTemplate
+ * @param {string} appTemplate
+ * @param {string} directory
  * @returns {Promise}
  */
-exports.initExpressApp = function (appName) {
-  checkAppName(appName).then(response => {
-     
-  });
+exports.createExpressTemplate = function(appTemplate, directory) {
+
 }
 
 /**
