@@ -15,9 +15,10 @@ const { version ,name } = require('./package.json');
 const program = new Command(name);
 program.version(version);
 
-/* Check NPM and Node Compatibility */
+/* Check NPM , Yarn and Node Compatibility */
 const versionCompatibility = {
-  npm: '90.6.0',
+  npm: '3.6.0',
+  yarn: '1.12.0',
   node: '8.1.0'
 };
 
