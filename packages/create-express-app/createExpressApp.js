@@ -25,7 +25,7 @@ const os = require('os');
  * @desc Check Node.js version
  * @function
  * @name checkNodeVersion
- * @param {Number} minimalNodeVersion
+ * @param {String} minimalNodeVersion
  * @returns {Promise}
  */
 exports.checkNodeVersion = function (minimalNodeVersion) {
@@ -57,7 +57,7 @@ exports.checkNodeVersion = function (minimalNodeVersion) {
  * @desc Check NPM version
  * @function
  * @name checkNPMVersion
- * @param {Number} minimalNPMVersion
+ * @param {String} minimalNPMVersion
  * @returns {Promise}
  */
 exports.checkNPMVersion = function (minimalNPMVersion) {
