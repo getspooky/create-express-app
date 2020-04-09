@@ -78,6 +78,33 @@ exports.checkNPMVersion = function (minimalNPMVersion) {
 
 /**
  * @export
+ * @desc Check Yarn version
+ * @function
+ * @name checkYarnVersion
+ * @param {String} minimalYarnVersion
+ * @returns {Promise}
+ */
+exports.checkYarnVersion = function (minimalYarnVersion) {
+  return new Promise((resolve, reject) => {
+    exec('yarn --version', (err, stdout) => {
+      const yarnVersion = stdout.trim();
+      if (err) {
+        reject(new TypeError(err));
+      } else if (compareVersions(yarnVersion, minimalYarnVersion) === -1) {
+        reject(
+          new TypeError(
+            `You need Yarn v${minimalYarnVersion} or above but you have v${yarnVersion}`
+          )
+        );
+      }
+      resolve('Yarn version compatible');
+    });
+  });
+};
+
+
+/**
+ * @export
  * @desc Check GitHub repository is cloned.
  * @function
  * @name checkIfRepositoryIsCloned

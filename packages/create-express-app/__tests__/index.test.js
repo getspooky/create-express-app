@@ -42,6 +42,12 @@ describe('Testing create-express-app package', function () {
     });
   });
 
+  it('should display message if the Yarn is compatible', function () {
+    return createExpressApp.checkYarnVersion('1.12.0').then((response) => {
+      expect(response).toEqual('Yarn version compatible');
+    });
+  });
+
   it('should return true if the repository is already cloned from github', function () {
     return createExpressApp.checkIfRepositoryIsCloned().then((response) => {
       expect(response).toBe(2);
