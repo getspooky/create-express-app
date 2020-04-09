@@ -220,20 +220,18 @@ exports.initExpressApp = function (appName, directory) {
 
   return Promise.all([
     module.exports.checkAppName(appName),
-    module.exports.createExpressTemplate(directory)
   ]);
 
 }
 
 /**
  * @exports
- * @desc Create Express Template.
+ * @desc Choose Express Template.
  * @function
- * @name createExpressTemplate
- * @param {string} directory
+ * @name chooseExpressTemplate
  * @returns {Promise}
  */
-exports.createExpressTemplate = function (directory) {
+exports.chooseExpressTemplate = function () {
   return inquirer
     .prompt([{
       type: 'list',
@@ -245,6 +243,28 @@ exports.createExpressTemplate = function (directory) {
       // 
     });
 }
+
+/**
+ * @exports
+ * @desc Choose Features Template.
+ * @function
+ * @name chooseFeaturesTemplate
+ * @param {string} directory
+ * @returns {Promise}
+ */
+exports.chooseFeaturesTemplate = function () {
+  return inquirer
+    .prompt([{
+      type: 'list',
+      name: 'features',
+      message: 'Please choose features for the created project',
+      choices: supportedFeatures
+    }])
+    .then(answers => {
+      // 
+    });
+}
+
 
 /**
  * @export
