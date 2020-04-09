@@ -12,7 +12,9 @@
 const path = require('path');
 const chalk = require('chalk');
 const inquirer = require('inquirer');
-const { exec } = require('child_process');
+const {
+  exec
+} = require('child_process');
 const compareVersions = require('compare-versions');
 const validateProjectName = require('validate-npm-package-name');
 const fs = require('fs-extra');
@@ -36,12 +38,12 @@ exports.checkNodeVersion = function (minimalNodeVersion) {
         reject(
           new Error(
             'You are running Node ' +
-              nodeVersion +
-              '.\n' +
-              'Create Express App requires Node ' +
-              minimalNodeVersion +
-              ' or higher. \n' +
-              'Please update your version of Node.'
+            nodeVersion +
+            '.\n' +
+            'Create Express App requires Node ' +
+            minimalNodeVersion +
+            ' or higher. \n' +
+            'Please update your version of Node.'
           )
         );
       }
@@ -196,13 +198,27 @@ exports.checkAppName = function (appName) {
 };
 
 /**
+ * @exports
+ * @desc Init Express Application.
+ * @function
+ * @name initExpressApp
+ * @param {string} appName
+ * @returns {Promise}
+ */
+exports.initExpressApp = function (appName) {
+  checkAppName(appName).then(response => {
+     
+  });
+}
+
+/**
  * @export
  * @desc Kill Current Process.
  * @function
  * @name killProcess
  * @returns {void}
  */
-exports.killProcess = function() {
+exports.killProcess = function () {
   console.log(chalk.blue('Done!'));
   process.exit(0);
 }
