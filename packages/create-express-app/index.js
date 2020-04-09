@@ -7,4 +7,4 @@
  * file that was distributed with this source code.
  */
 
-require('./createExpressApp');
+require('./commander');
