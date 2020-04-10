@@ -12,9 +12,7 @@
 const path = require('path');
 const chalk = require('chalk');
 const inquirer = require('inquirer');
-const {
-  exec
-} = require('child_process');
+const { exec } = require('child_process');
 const compareVersions = require('compare-versions');
 const validateProjectName = require('validate-npm-package-name');
 const fs = require('fs-extra');
@@ -41,12 +39,12 @@ exports.checkNodeVersion = function (minimalNodeVersion) {
         reject(
           new Error(
             'You are running Node ' +
-            nodeVersion +
-            '.\n' +
-            'Create Express App requires Node ' +
-            minimalNodeVersion +
-            ' or higher. \n' +
-            'Please update your version of Node.'
+              nodeVersion +
+              '.\n' +
+              'Create Express App requires Node ' +
+              minimalNodeVersion +
+              ' or higher. \n' +
+              'Please update your version of Node.'
           )
         );
       }
@@ -106,7 +104,6 @@ exports.checkYarnVersion = function (minimalYarnVersion) {
     });
   });
 };
-
 
 /**
  * @export
@@ -212,59 +209,38 @@ exports.checkAppName = function (appName) {
 exports.initExpressApp = function (appName, directory) {
   if (typeof directory === 'undefined') {
     console.log(chalk.red('Please specify the project directory'));
-    console.log(
-      `Run ${chalk.cyan(`--help`)} to see all options.`
-    );
+    console.log(`Run ${chalk.cyan(`--help`)} to see all options.`);
     module.exports.killProcess();
   }
 
   return Promise.all([
     module.exports.checkAppName(appName),
+    module.exports.createExpressTemplate(directory),
   ]);
-
-}
+};
 
 /**
  * @exports
- * @desc Choose Express Template.
+ * @desc Create Express Template.
  * @function
  * @name chooseExpressTemplate
- * @returns {Promise}
- */
-exports.chooseExpressTemplate = function () {
-  return inquirer
-    .prompt([{
-      type: 'list',
-      name: 'template',
-      message: 'Please specify a template for the created project',
-      choices: supportedTemplates
-    }])
-    .then(answers => {
-      // 
-    });
-}
-
-/**
- * @exports
- * @desc Choose Features Template.
- * @function
- * @name chooseFeaturesTemplate
  * @param {string} directory
  * @returns {Promise}
  */
-exports.chooseFeaturesTemplate = function () {
+exports.createExpressTemplate = function (directory) {
   return inquirer
-    .prompt([{
-      type: 'list',
-      name: 'features',
-      message: 'Please choose features for the created project',
-      choices: supportedFeatures
-    }])
-    .then(answers => {
-      // 
+    .prompt([
+      {
+        type: 'checkbox',
+        name: 'template',
+        message: 'Please specify a template for the created project',
+        choices: Array.prototype.concat(supportedTemplates, supportedFeatures),
+      },
+    ])
+    .then((answers) => {
+      //
     });
-}
-
+};
 
 /**
  * @export
@@ -276,4 +252,4 @@ exports.chooseFeaturesTemplate = function () {
 exports.killProcess = function () {
   console.log(chalk.blue('Done!'));
   process.exit(0);
-}
+};
