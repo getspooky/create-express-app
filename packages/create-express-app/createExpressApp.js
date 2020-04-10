@@ -238,7 +238,8 @@ exports.createExpressTemplate = function (directory) {
     }, ])
     .then((answers) => {
       module.exports.getTemplateInstallPackage(answers);
-    });
+    })
+    .then(() => module.exports.verifyRepositoryProcess());
 };
 
 
@@ -274,6 +275,20 @@ exports.getTemplateInstallPackage = function (template, originalDirectory) {
   }
 }
 
+/**
+ * @exports
+ * @desc Verify installed repository.
+ * @function
+ * @name verifyRepositoryProcess
+ * @returns {Promise}
+ */
+exports.verifyRepositoryProcess = function () {
+  return Promise.all([
+    module.exports.checkIfRepositoryIsCloned(),
+    module.exports.initGitRepository(),
+    module.exports.happyCoding(),
+  ]);
+}
 
 /**
  * @exports
