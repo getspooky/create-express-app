@@ -244,23 +244,15 @@ exports.createExpressTemplate = function (directory) {
 
 /**
  * @exports
- * @desc Clone Template from repository.
+ * @desc Move $X Template folder to given destination.
  * @function
- * @name cloneTemplateRepository
+ * @name moveTemplateFolderDestination
  * @param {string} template
+ * @param {string} directory 
  * @returns {Promise}
  */
-exports.cloneTemplateRepository = function (template) {
-  return new Promise((resolve, reject) => {
-    const template = 'cra-template-'.concat(template);
-    exec(`git clone ${template}`, (err, stdout) => {
-      if (err) {
-        reject(new TypeError(err));
-      } else {
-        resolve(stdout);
-      }
-    });
-  });
+exports.moveTemplateFolderDestination = function (template, directory) {
+  return fs.copy(path.join(__dirname, '../cra-template-'.concat(template)), directory);
 }
 
 /**
@@ -278,9 +270,10 @@ exports.getTemplateInstallPackage = function (template, originalDirectory) {
       'Creating a new Express app in ' + chalk.green(originalDirectory) +
       '\n This might take a couple of seconds.'
     );
-    cloneTemplateRepository(template);
+    return module.exports.moveTemplateFolderDestination(template, originalDirectory);
   }
 }
+
 
 /**
  * @exports
