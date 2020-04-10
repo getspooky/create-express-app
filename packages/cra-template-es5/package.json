@@ -22,5 +22,8 @@
   },
   "bugs": {
     "url": "https://github.com/getspooky/create-express-app/issues"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
   }
 }
