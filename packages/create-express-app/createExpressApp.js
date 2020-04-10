@@ -277,11 +277,39 @@ exports.getTemplateInstallPackage = function (template, originalDirectory) {
     console.log(
       'Creating a new Express app in ' + chalk.green(originalDirectory) +
       '\n This might take a couple of seconds.'
-    )
+    );
     cloneTemplateRepository(template);
   }
 }
 
+/**
+ * @exports
+ * @desc Express App created successfully 🤓🤓🤓.
+ * @function
+ * @name happyCoding
+ * @param {string} directory
+ * @returns {void}
+ */
+exports.happyCoding = function (directory) {
+  console.log(
+    chalk.green('Success! App created at ' + directory)
+  );
+  console.log(
+    'Inside that directory, you can run several commands : '
+  );
+  console.log(
+    chalk.cyan('yarn start') +
+    '\n' +
+    'Starts the development server.'
+  );
+  console.log(
+    chalk.cyan('yarn test') +
+    '\n' +
+    'Starts the test runner.' +
+    '\n'
+  );
+  console.log('Happy Coding');
+};
 
 /**
  * @export
