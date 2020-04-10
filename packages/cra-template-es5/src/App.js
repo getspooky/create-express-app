@@ -4,9 +4,11 @@ var path = require('path'),
 // Create global app object
 const app = express();
 
+// Serve images, CSS files, HTML and JavaScript files in a directory named public.
+app.use('/static', express.static(path.join(__dirname, '../public')));
+
 app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname + '../public/index.html'));
-  //__dirname : It will resolve to your project folder.
+  res.redirect('/static/index.html');
 });
 
 var server = app.listen(process.env.PORT || 4200, function () {
