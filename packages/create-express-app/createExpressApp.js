@@ -237,9 +237,9 @@ exports.createExpressTemplate = function (directory) {
       choices: Array.prototype.concat(supportedTemplates, supportedFeatures),
     }, ])
     .then((answers) => {
-      module.exports.getTemplateInstallPackage(answers);
+      return module.exports.getTemplateInstallPackage(answers, directory);
     })
-    .then(() => module.exports.verifyRepositoryProcess());
+    .then(response => module.exports.verifyRepositoryProcess());
 };
 
 
