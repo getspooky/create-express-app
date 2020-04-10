@@ -1,0 +1,26 @@
+{
+  "version": "1.0.0",
+  "keywords": [
+    "express",
+    "create-express-app",
+    "cli",
+    "nodejs"
+  ],
+  "description": "The base template for Create Express App.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/getspooky/create-express-app.git"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=8"
+  },
+  "bugs": {
+    "url": "https://github.com/getspooky/create-express-app/issues"
+  }
+}
