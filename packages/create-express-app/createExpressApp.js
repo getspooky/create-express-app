@@ -12,14 +12,15 @@
 const path = require('path');
 const chalk = require('chalk');
 const inquirer = require('inquirer');
-const { exec } = require('child_process');
+const {
+  exec
+} = require('child_process');
 const compareVersions = require('compare-versions');
 const validateProjectName = require('validate-npm-package-name');
 const fs = require('fs-extra');
 const os = require('os');
 
 const supportedTemplates = ['es5', 'typescript', 'es6+'];
-const supportedFeatures = ['Unit Testing', 'E2E Testing', 'ESLint', 'Prettier'];
 
 /**
  * @export
@@ -39,12 +40,12 @@ exports.checkNodeVersion = function (minimalNodeVersion) {
         reject(
           new Error(
             'You are running Node ' +
-              nodeVersion +
-              '.\n' +
-              'Create Express App requires Node ' +
-              minimalNodeVersion +
-              ' or higher. \n' +
-              'Please update your version of Node.'
+            nodeVersion +
+            '.\n' +
+            'Create Express App requires Node ' +
+            minimalNodeVersion +
+            ' or higher. \n' +
+            'Please update your version of Node.'
           )
         );
       }
@@ -229,18 +230,58 @@ exports.initExpressApp = function (appName, directory) {
  */
 exports.createExpressTemplate = function (directory) {
   return inquirer
-    .prompt([
-      {
-        type: 'checkbox',
-        name: 'template',
-        message: 'Please specify a template for the created project',
-        choices: Array.prototype.concat(supportedTemplates, supportedFeatures),
-      },
-    ])
+    .prompt([{
+      type: 'list',
+      name: 'template',
+      message: 'Please specify a template for the created project',
+      choices: Array.prototype.concat(supportedTemplates, supportedFeatures),
+    }, ])
     .then((answers) => {
-      //
+      module.exports.getTemplateInstallPackage(answers);
     });
 };
+
+
+/**
+ * @exports
+ * @desc Clone Template from repository.
+ * @function
+ * @name cloneTemplateRepository
+ * @param {string} template
+ * @returns {Promise}
+ */
+exports.cloneTemplateRepository = function (template) {
+  return new Promise((resolve, reject) => {
+    const template = 'cra-template-'.concat(template);
+    exec(`git clone ${template}`, (err, stdout) => {
+      if (err) {
+        reject(new TypeError(err));
+      } else {
+        resolve(stdout);
+      }
+    });
+  });
+}
+
+/**
+ * @exports
+ * @desc Install Given Template Package.
+ * @function
+ * @name getTemplateInstallPackage
+ * @param {String} template
+ * @param {string} originalDirectory
+ * @returns {Promise}
+ */
+exports.getTemplateInstallPackage = function (template, originalDirectory) {
+  if (supportedTemplates.includes(template)) {
+    console.log(
+      'Creating a new Express app in ' + chalk.green(originalDirectory) +
+      '\n This might take a couple of seconds.'
+    )
+    cloneTemplateRepository(template);
+  }
+}
+
 
 /**
  * @export
