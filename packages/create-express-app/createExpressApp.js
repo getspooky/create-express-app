@@ -12,13 +12,10 @@
 const path = require('path');
 const chalk = require('chalk');
 const inquirer = require('inquirer');
-const {
-  exec
-} = require('child_process');
+const { exec } = require('child_process');
 const compareVersions = require('compare-versions');
 const validateProjectName = require('validate-npm-package-name');
 const fs = require('fs-extra');
-const os = require('os');
 
 const supportedTemplates = ['es5', 'typescript', 'es6+'];
 
@@ -40,12 +37,12 @@ exports.checkNodeVersion = function (minimalNodeVersion) {
         reject(
           new Error(
             'You are running Node ' +
-            nodeVersion +
-            '.\n' +
-            'Create Express App requires Node ' +
-            minimalNodeVersion +
-            ' or higher. \n' +
-            'Please update your version of Node.'
+              nodeVersion +
+              '.\n' +
+              'Create Express App requires Node ' +
+              minimalNodeVersion +
+              ' or higher. \n' +
+              'Please update your version of Node.'
           )
         );
       }
@@ -230,18 +227,19 @@ exports.initExpressApp = function (appName, directory) {
  */
 exports.createExpressTemplate = function (directory) {
   return inquirer
-    .prompt([{
-      type: 'list',
-      name: 'template',
-      message: 'Please specify a template for the created project',
-      choices: Array.prototype.concat(supportedTemplates, supportedFeatures),
-    }, ])
+    .prompt([
+      {
+        type: 'list',
+        name: 'template',
+        message: 'Please specify a template for the created project',
+        choices: Array.prototype.concat(supportedTemplates, supportedFeatures),
+      },
+    ])
     .then((answers) => {
       return module.exports.getTemplateInstallPackage(answers, directory);
     })
-    .then(response => module.exports.verifyRepositoryProcess());
+    .then((response) => module.exports.verifyRepositoryProcess());
 };
-
 
 /**
  * @exports
@@ -249,12 +247,15 @@ exports.createExpressTemplate = function (directory) {
  * @function
  * @name moveTemplateFolderDestination
  * @param {string} template
- * @param {string} directory 
+ * @param {string} directory
  * @returns {Promise}
  */
 exports.moveTemplateFolderDestination = function (template, directory) {
-  return fs.copy(path.join(__dirname, '../cra-template-'.concat(template)), directory);
-}
+  return fs.copy(
+    path.join(__dirname, '../cra-template-'.concat(template)),
+    directory
+  );
+};
 
 /**
  * @exports
@@ -268,12 +269,16 @@ exports.moveTemplateFolderDestination = function (template, directory) {
 exports.getTemplateInstallPackage = function (template, originalDirectory) {
   if (supportedTemplates.includes(template)) {
     console.log(
-      'Creating a new Express app in ' + chalk.green(originalDirectory) +
-      '\n This might take a couple of seconds.'
+      'Creating a new Express app in ' +
+        chalk.green(originalDirectory) +
+        '\n This might take a couple of seconds.'
     );
-    return module.exports.moveTemplateFolderDestination(template, originalDirectory);
+    return module.exports.moveTemplateFolderDestination(
+      template,
+      originalDirectory
+    );
   }
-}
+};
 
 /**
  * @exports
@@ -288,7 +293,7 @@ exports.verifyRepositoryProcess = function () {
     module.exports.initGitRepository(),
     module.exports.happyCoding(),
   ]);
-}
+};
 
 /**
  * @exports
@@ -299,22 +304,13 @@ exports.verifyRepositoryProcess = function () {
  * @returns {void}
  */
 exports.happyCoding = function (directory) {
+  console.log(chalk.green('Success! App created at ' + directory));
+  console.log('Inside that directory, you can run several commands : ');
   console.log(
-    chalk.green('Success! App created at ' + directory)
+    chalk.cyan('yarn start') + '\n' + 'Starts the development server.'
   );
   console.log(
-    'Inside that directory, you can run several commands : '
-  );
-  console.log(
-    chalk.cyan('yarn start') +
-    '\n' +
-    'Starts the development server.'
-  );
-  console.log(
-    chalk.cyan('yarn test') +
-    '\n' +
-    'Starts the test runner.' +
-    '\n'
+    chalk.cyan('yarn test') + '\n' + 'Starts the test runner.' + '\n'
   );
   console.log('Happy Coding');
 };
