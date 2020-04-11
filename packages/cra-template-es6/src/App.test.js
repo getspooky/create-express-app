@@ -1,5 +1,5 @@
-const request = require('supertest');
-const app = require('./App');
+import request from 'supertest';
+import app from './App';
 
 /**
  * A basic test example.
