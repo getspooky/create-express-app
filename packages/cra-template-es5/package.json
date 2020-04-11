@@ -1,4 +1,5 @@
 {
+  "name": "cra-template-es6",
   "version": "1.0.0",
   "keywords": [
     "express",
@@ -10,7 +11,7 @@
   "main": "index.js",
   "scripts": {
     "start": "express-scripts start",
-    "test" : "express-scripts test"
+    "test": "express-scripts test"
   },
   "repository": {
     "type": "git",
