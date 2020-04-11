@@ -1,0 +1,16 @@
+{
+  "name": "express-ui",
+  "project": "create-express-app",
+  "version": "1.0.0",
+  "description": "Create Express App UI",
+  "main": "banner.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Yasser Ameur El Idrissi",
+  "license": "MIT",
+  "devDependencies": {
+    "cfonts": "^2.8.1",
+    "node-emoji": "^1.10.0"
+  }
+}
