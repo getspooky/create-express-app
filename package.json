@@ -1,4 +1,5 @@
 {
+  "private": true,
   "name": "create-express-app",
   "version": "1.0.0",
   "description": "Get Express.js projects ready fast by running one command",
