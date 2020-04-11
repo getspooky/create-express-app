@@ -1,0 +1,29 @@
+{
+  "name": "cra-template-es6",
+  "version": "1.0.0",
+  "keywords": [
+    "express",
+    "create-express-app",
+    "cli",
+    "nodejs"
+  ],
+  "description": "ES6 template for Create Express App.",
+  "main": "index.js",
+  "scripts": {
+    "start": "express-scripts start",
+    "test": "express-scripts test",
+    "build": "express-scripts build"
+  },
+  "author": "Yasser Ameur El Idrissi",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/getspooky/create-express-app.git"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=8"
+  },
+  "bugs": {
+    "url": "https://github.com/getspooky/create-express-app/issues"
+  }
+}
