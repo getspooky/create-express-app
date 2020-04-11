@@ -15,6 +15,4 @@ app.get('/', (req, res) => {
   res.redirect('/static/index.html');
 });
 
-var server = app.listen(process.env.PORT || 4200, () => {
-  console.log('Listening on port ' + server.address().port);
-});
+export default app;
