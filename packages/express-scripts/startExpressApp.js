@@ -10,10 +10,12 @@
 'use strict';
 
 const ip = require('ip');
-const { exec } = require('child_process');
+const {
+  exec
+} = require('child_process');
 const chalk = require('chalk');
 
-const DEFAULT_PORT = parseInt(process.env.PORT) || 4200;
+const DEFAULT_PORT = parseInt(process.env.PORT) || 3000;
 const HOST = process.env.HOST || '0.0.0.0';
 const divider = chalk.gray('\n-----------------------------------');
 
@@ -48,10 +50,10 @@ function checkInstalledPackage(packageName) {
         reject(
           new TypeError(
             'express-scripts require ' +
-              packageName +
-              ' package to be installed globally' +
-              '\n' +
-              'Please run npm install -g nodemon'
+            packageName +
+            ' package to be installed globally' +
+            '\n' +
+            'Please run npm install -g nodemon'
           )
         );
       resolve(true);
