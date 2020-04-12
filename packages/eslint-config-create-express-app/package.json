@@ -20,5 +20,8 @@
   "author": "Yasser Ameur El Idrissi",
   "contributors": [],
   "license": "MIT",
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^6.8.0"
+  }
 }
