@@ -1,10 +1,16 @@
-<img src="/docs/media/logo.png" alt="create-express-app" style="margin-bottom:20px;margin-top:20px" />
+<p align="left">
 
-![GitHub repo size](https://img.shields.io/github/repo-size/getspooky/create-express-app)
+<img src="/docs/media/logo.png" alt="create-express-app" style="margin-bottom:10px;margin-top:20px" />
 
-![GitHub](https://img.shields.io/github/license/getspooky/create-express-app?style=plastic)
+<br>
 
-![GitHub last commit](https://img.shields.io/github/last-commit/getspooky/getspooky)
+<img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/getspooky/create-express-app">
+
+<img alt="license" src="https://img.shields.io/github/license/getspooky/create-express-app?style=plastic">
+
+<img alt="GitHub Last Commit " src="https://img.shields.io/github/last-commit/getspooky/getspooky" />
+
+</p>
 
 # create-express-app
 
