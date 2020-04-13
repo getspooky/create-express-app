@@ -1,7 +1,7 @@
 {
   "name": "eslint-config-create-express-app",
   "version": "1.0.0",
-  "description": "ESLint configuration used Create Express App",
+  "description": "ESLint configuration used by Create Express App",
   "main": "index.js",
   "repository": {
     "type": "git",
