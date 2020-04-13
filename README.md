@@ -77,3 +77,12 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recen
 ## License
 
 Please see [License File](LICENSE.md) for more information.
+
+<p align="center">
+ <img src="docs/media/coding.jpeg" width="200" height="200" />
+</p>
+
+<div align="center">
+   Happy Coding ❤️
+</div>
+
