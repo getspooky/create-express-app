@@ -1,10 +1,4 @@
-<p align="center">
-  <img src="/docs/media/logo.png" alt="create-express-app" style="margin-bottom:20px;margin-top:20px" />
-</br>
-</p>
-<div align="center">
-<sub>Created and maintained with ❤️ by  <a href="https://github.com/getspooky">getspooky</a>.</sub>
-</div>
+<img src="/docs/media/logo.png" alt="create-express-app" style="margin-bottom:20px;margin-top:20px" />
 
 # create-express-app
 
