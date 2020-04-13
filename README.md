@@ -47,8 +47,6 @@ my-project
     └── App.test.js
 ```
 
-Then open http://localhost:4200/ to see your app.
-
 ## Running Tests
 
 Create Express App uses Jest as its test runner
