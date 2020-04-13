@@ -1,18 +1,6 @@
-<p align="left">
-
-<img src="/docs/media/logo.png" alt="create-express-app" style="margin-bottom:10px;margin-top:20px" />
-
-<br>
-
-<img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/getspooky/create-express-app">
-
-<img alt="license" src="https://img.shields.io/github/license/getspooky/create-express-app?style=plastic">
-
-<img alt="GitHub Last Commit " src="https://img.shields.io/github/last-commit/getspooky/getspooky" />
-
-</p>
-
 # create-express-app
+
+ <sub>Created and maintained with ❤️ by  <a href="https://github.com/getspooky">getspooky</a>.</sub>
 
 Create Express App is a command-line interface tool that helps you to initialize, develop, and maintain your Expressjs applications.
 Create Express App works on macOS, Windows, and Linux.<br>
