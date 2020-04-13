@@ -1,12 +1,6 @@
-<p align="center">
-  <img src="/docs/media/logo.png" alt="create-express-app" style="margin-bottom:20px;margin-top:20px" />
-</br>
-</p>
-<div align="center">
-<sub>Created and maintained with ❤️ by  <a href="https://github.com/getspooky">getspooky</a>.</sub>
-</div>
-
 # create-express-app
+
+ <sub>Created and maintained with ❤️ by  <a href="https://github.com/getspooky">getspooky</a>.</sub>
 
 Create Express App is a command-line interface tool that helps you to initialize, develop, and maintain your Expressjs applications.
 Create Express App works on macOS, Windows, and Linux.<br>
@@ -53,8 +47,6 @@ my-project
     └── App.test.js
 ```
 
-Then open http://localhost:4200/ to see your app.
-
 ## Running Tests
 
 Create Express App uses Jest as its test runner
@@ -85,3 +77,12 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recen
 ## License
 
 Please see [License File](LICENSE.md) for more information.
+
+<p align="center">
+ <img src="docs/media/coding.jpeg" width="200" height="200" />
+</p>
+
+<div align="center">
+   Happy Coding ❤️
+</div>
+
