@@ -1,5 +1,7 @@
+#!/usr/bin/env node
+
 /*
- * This file is part of the create-express-app package.
+ * This file is part of the express-artisan package.
  *
  * (c) Yasser Ameur El Idrissi <getspookydev@gmail.com>
  *
