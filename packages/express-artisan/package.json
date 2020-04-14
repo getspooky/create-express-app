@@ -21,7 +21,7 @@
   "author": "Yasser Ameur El Idrissi",
   "contributors": [],
   "license": "MIT",
-  "devDependencies": {
+  "dependencies": {
     "chalk": "^4.0.0",
     "commander": "^5.0.0",
     "inquirer": "^7.1.0",
