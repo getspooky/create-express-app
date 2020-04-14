@@ -20,5 +20,9 @@
   },
   "author": "Yasser Ameur El Idrissi",
   "contributors": [],
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "chalk": "^4.0.0",
+    "commander": "^5.0.0"
+  }
 }
