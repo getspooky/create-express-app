@@ -1,5 +1,5 @@
 /*
- * This file is part of the create-express-app package.
+ * This file is part of the express-artisan package.
  *
  * (c) Yasser Ameur El Idrissi <getspookydev@gmail.com>
  *
@@ -10,6 +10,7 @@
 'use strict';
 
 const chalk = require('chalk');
+const path = require('path');
 const {
   Command
 } = require('commander');
@@ -19,9 +20,20 @@ const {
   name
 } = require('./package.json');
 
-const supportedScripts = [
-  'start', 'build', 'test'
-];
+// The 'unhandledRejection' event is emitted whenever a Promise is rejected.
+process.on('unhandledRejection', err => {
+  console.log(
+    chalk.red(err.message),
+  );
+  console.log(
+    'Link : ' +
+    chalk.underline.blue(
+      'https://github.com/getspooky/create-express-app/issues'
+    )
+  );
+});
+
+const supportedScripts = ['start', 'build', 'test'];
 
 const program = new Command(name);
 program.version(version);
@@ -31,23 +43,19 @@ program
   .alias('sc')
   .description('Create Express App Scripts')
   .action(function (script) {
-    // checking if script does not include supported express artisan scripts.   
+    // checking if given script does not include supported express artisan scripts.
     if (!supportedScripts.includes(script)) {
+      console.log(chalk.red('Unknown script ' + script));
       console.log(
-        chalk.red('Unknown script ' + script)
-      );
-      console.log(
-        chalk.yellow('Supported express artisan scripts : ' +
-          supportedScripts.join(', '))
-      );
-      console.log(
-        'Link : ' +
-        chalk.underline.blue(
-          'https://github.com/getspooky/create-express-app/issues'
+        chalk.yellow(
+          'Supported express artisan scripts : ' + supportedScripts.join(', ')
         )
       );
+      process.exit(0);
+    } else {
+      // example: start.js
+      require(path.join(__dirname, script));
     }
-    
   });
 
 program.parse(process.argv);
