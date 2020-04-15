@@ -39,9 +39,9 @@ var divider = chalk.gray('\n-----------------------------------');
     .then(({
         protocol
       }) => require(protocol)
-      .createServer(require(
-        path.resolve(__dirname, process.cwd(), 'src', 'App')
-      ))
+      .createServer(
+        require(path.resolve(__dirname, process.cwd(), 'src', 'App'))
+      )
       .listen(PORT, function (err) {
         if (err) throw err;
         console.log();
