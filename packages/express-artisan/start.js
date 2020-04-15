@@ -13,6 +13,7 @@ const path = require('path');
 const chalk = require('chalk');
 const inquirer = require('inquirer');
 const ip = require('ip');
+const ora = require('ora');
 const supportedProtocols = ['http', 'https'];
 // PORT environment variable
 const PORT = parseInt(process.env.PORT, 10) || 4200;
@@ -20,6 +21,9 @@ const PORT = parseInt(process.env.PORT, 10) || 4200;
 const HOST = process.env.HOST || '127.0.0.1';
 
 var divider = chalk.gray('\n-----------------------------------');
+
+// Starting Server Spinner
+const spinner = ora('📡 Starting Nodejs Server...');
 
 /**
  * @internal
@@ -37,20 +41,24 @@ var divider = chalk.gray('\n-----------------------------------');
       choices: [...supportedProtocols],
     }, ])
     .then(({
-        protocol
-      }) => require(protocol)
-      .createServer(
-        require(path.resolve(__dirname, process.cwd(), 'src', 'App'))
-      )
-      .listen(PORT, function (err) {
-        if (err) throw err;
-        console.log();
-        console.log('Server started ! ' + chalk.green('✓'));
-        console.log(`
+      protocol
+    }) => {
+      spinner.start();
+      return require(protocol)
+        .createServer(
+          require(path.resolve(__dirname, process.cwd(), 'src', 'App'))
+        )
+        .listen(PORT, function (err) {
+          if (err) throw err;
+          spinner.stop();
+          console.log();
+          console.log('Server started ! ' + chalk.green('✓'));
+          console.log(`
            ${chalk.bold('Access URLs:')}${divider}
             Localhost: ${chalk.magenta(`http://${HOST}:${PORT}`)}
             LAN: ${chalk.magenta(`http://${ip.address()}:${PORT}`)}
        `);
-        console.log(chalk.blue(`Press ${chalk.italic('CTRL-C')} to stop`));
-      }));
+          console.log(chalk.blue(`Press ${chalk.italic('CTRL-C')} to stop`));
+        })
+    });
 })();
