@@ -10,8 +10,8 @@
   "description": "The base template for Create Express App.",
   "main": "index.js",
   "scripts": {
-    "start": "express-scripts start",
-    "test": "express-scripts test"
+    "start": "express-artisan start",
+    "test": "express-artisan test"
   },
   "repository": {
     "type": "git",
