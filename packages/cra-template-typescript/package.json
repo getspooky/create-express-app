@@ -8,6 +8,8 @@
     "nodejs"
   ],
   "description": "TypeScript template for Create Express App.",
+  "author": "Yasser Ameur El Idrissi",
+  "contributors": [],
   "main": "index.js",
   "scripts": {
     "start": "express-scripts start",
