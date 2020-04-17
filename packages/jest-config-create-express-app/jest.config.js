@@ -1,5 +1,5 @@
 /*
- * This file is part of the create-express-app package.
+ * This file is part of the jest-config-create-express-app package.
  *
  * (c) Yasser Ameur El Idrissi <getspookydev@gmail.com>
  *
@@ -7,13 +7,15 @@
  * file that was distributed with this source code.
  */
 
+const path = require('path');
+
 module.exports = {
   roots: ['<rootDir>/src'],
   collectCoverageFrom: ['src/**/*.{js,ts}'],
-  testRegex: '\\.(test|spec)\\.js$',
+  testRegex: '\\.(test|spec)\\.(ts|js)$',
   moduleFileExtensions: ['js', 'ts'],
   transform: {
-    '^.+\\.ts$': 'ts-jest',
+    '^.+\\.ts$': path.join(__dirname, 'node_modules/ts-jest'),
   },
   testPathIgnorePatterns: ['/(build|docs|node_modules)/'],
   coverageReporters: ['json', 'lcov'],
