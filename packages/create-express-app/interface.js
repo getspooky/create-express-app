@@ -10,7 +10,9 @@
 'use strict';
 
 const CFonts = require('cfonts');
-const { get } = require('node-emoji');
+const {
+  get
+} = require('node-emoji');
 
 // This is a silly little command line tool for sexy fonts in the console.
 exports._BANNER = function (appName) {
@@ -18,7 +20,7 @@ exports._BANNER = function (appName) {
     font: 'block', // define the font face
     align: 'left', // define text alignment
     colors: ['cyan'], // define all colors
-    background: 'black', // define the background color
+    background: 'transparent', // define the background color
     letterSpacing: 1, // define letter spacing
     lineHeight: 1, // define the line height
     space: true, // define if the output text should have empty lines on top and on the bottom
