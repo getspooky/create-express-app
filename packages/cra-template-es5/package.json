@@ -1,5 +1,5 @@
 {
-  "name": "cra-template-es6",
+  "name": "cra-template-es5",
   "version": "1.0.0",
   "keywords": [
     "express",
@@ -9,6 +9,8 @@
   ],
   "description": "The base template for Create Express App.",
   "main": "index.js",
+  "author": "Yasser Ameur El Idrissi",
+  "contributors": [],
   "scripts": {
     "start": "express-artisan start",
     "test": "express-artisan test"
