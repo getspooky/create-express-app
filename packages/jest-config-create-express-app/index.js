@@ -1,5 +1,5 @@
 /*
- * This file is part of the create-express-app package.
+ * This file is part of the jest-config-create-express-app package.
  *
  * (c) Yasser Ameur El Idrissi <getspookydev@gmail.com>
  *
@@ -7,4 +7,4 @@
  * file that was distributed with this source code.
  */
 
-require('./jest.config');
+module.exports = require('./jest.config');
