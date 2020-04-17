@@ -13,9 +13,7 @@ const path = require('path');
 const fs = require('fs');
 const chalk = require('chalk');
 const ora = require('ora');
-const {
-  exec
-} = require('child_process');
+const { exec } = require('child_process');
 
 // Compiling spinner
 const spinner = ora('📦 Compiling...');
@@ -92,10 +90,10 @@ var babelBuild = {
       chalk.bold.blue(
         '- If you are using ES6 template make sure to have .babelrc file '
       ) +
-      '\n' +
-      chalk.bold.blue(
-        '- If you are using TypeScript template make sure to have tsconfig.json file'
-      )
+        '\n' +
+        chalk.bold.blue(
+          '- If you are using TypeScript template make sure to have tsconfig.json file'
+        )
     );
     console.log();
   }
