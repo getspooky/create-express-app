@@ -20,9 +20,7 @@
   "author": "Yasser Ameur El Idrissi",
   "contributors": [],
   "license": "MIT",
-  "devDependencies": {
-    "@types/jest": "^25.2.1",
-    "jest": "^25.3.0",
+  "dependencies": {
     "ts-jest": "^25.3.1"
   }
 }
