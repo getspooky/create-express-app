@@ -1,0 +1,17 @@
+{
+  "cra-template-es5": {
+    "version": "1.0.0",
+    "link": "https://example.com/cra-template-es5.tgz",
+    "description": "The base template for Create Express App."
+  },
+  "cra-template-es6": {
+    "version": "1.0.0",
+    "link": "https://example.com/cra-template-es6.tgz",
+    "description": "ES6 template for Create Express App"
+  },
+  "cra-template-typescript": {
+    "version": "1.0.0",
+    "link": "https://example.com/cra-template-typescript.tgz",
+    "description": "TypeScript template for Create Express App."
+  }
+}
