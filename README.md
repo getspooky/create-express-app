@@ -1,8 +1,9 @@
 # create-express-app
 
- <sub>Created and maintained with ❤️ by  <a href="https://github.com/getspooky">getspooky</a>.</sub>
+<sub>Created and maintained with ❤️ by <a href="https://github.com/getspooky">getspooky</a>.</sub>
 
 Create Express App is a command-line interface tool that helps you to initialize, develop, and maintain your Expressjs applications.
+It offers a modern build setup with no configuration. At the same time, it still offers the flexibility to tweak the config of each tool.
 Create Express App works on macOS, Windows, and Linux.<br>
 
 - If something doesn’t work, please file an [issue](https://github.com/getspooky/create-express-app/issues).<br>
@@ -22,7 +23,7 @@ cd my-project
 ```
 
 Runs the app in development mode.
-Open http://localhost:3000 to view it in the browser.
+Open http://localhost:4200 to view it in the browser.
 
 ```sh
 npm run start
@@ -79,10 +80,9 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recen
 Please see [License File](LICENSE.md) for more information.
 
 <p align="center">
- <img src="docs/media/coding.jpeg" width="200" height="200" />
+ <img src="website/media/coding.jpeg" width="200" height="200" />
 </p>
 
 <div align="center">
    Happy Coding ❤️
 </div>
-
