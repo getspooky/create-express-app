@@ -9,15 +9,19 @@
 
 'use strict';
 
-const path = require('path');
 const chalk = require('chalk');
 const inquirer = require('inquirer');
+const unzip = require('unzip');
 const { exec } = require('child_process');
 const compareVersions = require('compare-versions');
 const validateProjectName = require('validate-npm-package-name');
-const fs = require('fs-extra');
+const hyperquest = require('hyperquest');
 
-const supportedTemplates = ['es5', 'typescript', 'es6+'];
+const supportedTemplates = [
+  'cra-template-es5',
+  'cra-template-typescript',
+  'cra-template-es6',
+];
 
 /**
  * @export
@@ -206,6 +210,7 @@ exports.checkAppName = function (appName) {
  */
 exports.initExpressApp = function (appName, directory) {
   if (typeof directory === 'undefined') {
+    console.log();
     console.log(chalk.red('Please specify the project directory'));
     console.log(`Run ${chalk.cyan(`--help`)} to see all options.`);
     module.exports.killProcess();
@@ -226,35 +231,23 @@ exports.initExpressApp = function (appName, directory) {
  * @returns {Promise}
  */
 exports.createExpressTemplate = function (directory) {
+  console.log();
   return inquirer
     .prompt([
       {
         type: 'list',
         name: 'template',
         message: 'Please specify a template for the created project',
-        choices: Array.prototype.concat(supportedTemplates, supportedFeatures),
+        choices: supportedTemplates,
       },
     ])
     .then((answers) => {
-      return module.exports.getTemplateInstallPackage(answers, directory);
+      return module.exports.getTemplateInstallPackage(
+        answers.template,
+        directory
+      );
     })
-    .then((response) => module.exports.verifyRepositoryProcess());
-};
-
-/**
- * @exports
- * @desc Move $X Template folder to given destination.
- * @function
- * @name moveTemplateFolderDestination
- * @param {string} template
- * @param {string} directory
- * @returns {Promise}
- */
-exports.moveTemplateFolderDestination = function (template, directory) {
-  return fs.copy(
-    path.join(__dirname, '../cra-template-'.concat(template)),
-    directory
-  );
+    .then(() => module.exports.verifyRepositoryProcess());
 };
 
 /**
@@ -262,22 +255,36 @@ exports.moveTemplateFolderDestination = function (template, directory) {
  * @desc Install Given Template Package.
  * @function
  * @name getTemplateInstallPackage
- * @param {String} template
+ * @param {string} template
  * @param {string} originalDirectory
+ * @param {string} path
  * @returns {Promise}
  */
-exports.getTemplateInstallPackage = function (template, originalDirectory) {
-  if (supportedTemplates.includes(template)) {
-    console.log(
-      'Creating a new Express app in ' +
-        chalk.green(originalDirectory) +
-        '\n This might take a couple of seconds.'
-    );
-    return module.exports.moveTemplateFolderDestination(
-      template,
-      originalDirectory
-    );
-  }
+exports.getTemplateInstallPackage = function (
+  template,
+  originalDirectory,
+  path
+) {
+  return new Promise((resolve, reject) => {
+    // make sure that all given templats starts with cra-template-
+    // @example cra-template-es6
+    if (!supportedTemplates.includes(template))
+      reject(new TypeError('The given template does not exists!'));
+    if (path.match(/^.+\.(tgz|tar\.gz)$/) === null)
+      reject(new TypeError(path + ' should match format : ^.+.(tgz|tar.gz)$'));
+    // extract zip file to the specified path
+    hyperquest(path)
+      .on('error', function (err) {
+        reject(new TypeError('Unable to open ' + path));
+      })
+      .pipe(
+        unzip.Extract({
+          path: originalDirectory,
+        })
+      );
+    //
+    resolve('Installed successfully');
+  });
 };
 
 /**
@@ -297,7 +304,7 @@ exports.verifyRepositoryProcess = function () {
 
 /**
  * @exports
- * @desc Express App created successfully 🤓🤓🤓.
+ * @desc Express App created successfully.
  * @function
  * @name happyCoding
  * @param {string} directory
