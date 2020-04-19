@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /*
  * This file is part of the create-express-app package.
  *
