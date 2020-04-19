@@ -9,8 +9,13 @@
 
 const chalk = require('chalk');
 const ora = require('ora');
-const { Command } = require('commander');
-const { _BANNER, _EMOJIS } = require('./interface');
+const {
+  Command
+} = require('commander');
+const {
+  _BANNER,
+  _EMOJIS
+} = require('./interface');
 const {
   killProcess,
   checkNPMVersion,
@@ -21,7 +26,11 @@ const {
   happyCoding,
 } = require('./createExpressApp');
 
-const { version, name, author } = require('./package.json');
+const {
+  version,
+  name,
+  author
+} = require('./package.json');
 const program = new Command(name);
 program.version(version);
 
@@ -57,10 +66,10 @@ program
   .action(function (projectName, action) {
     // Cheking NPM , Yarn and Node versions.
     Promise.all([
-      checkNPMVersion(versionCompatibility.npm),
-      checkYarnVersion(versionCompatibility.yarn),
-      checkNodeVersion(versionCompatibility.node),
-    ])
+        checkNPMVersion(versionCompatibility.npm),
+        checkYarnVersion(versionCompatibility.yarn),
+        checkNodeVersion(versionCompatibility.node),
+      ])
       .then(() => {
         initExpressApp(projectName, action.directory)
           .then(() => spinner.project.start())
@@ -82,14 +91,14 @@ program
         console.log(chalk.red(err.message));
         console.log(
           'If you feel have found a security issue or concern with create-express-app' +
-            '\n' +
-            'Please use the following link to create a new issue: '
+          '\n' +
+          'Please use the following link to create a new issue: '
         );
         console.log(
           'Link : ' +
-            chalk.underline.blue(
-              'https://github.com/getspooky/create-express-app/issues'
-            )
+          chalk.underline.blue(
+            'https://github.com/getspooky/create-express-app/issues'
+          )
         );
         killProcess();
       });
