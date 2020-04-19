@@ -50,6 +50,8 @@ exports.checkNodeVersion = function (minimalNodeVersion) {
           )
         );
       }
+      console.log();
+      console.log('Node version compatible ' + chalk.green('✓'));
       resolve('Node version compatible');
     });
   });
@@ -76,6 +78,8 @@ exports.checkNPMVersion = function (minimalNPMVersion) {
           )
         );
       }
+      console.log();
+      console.log('NPM version compatible ' + chalk.green('✓'));
       resolve('NPM version compatible');
     });
   });
@@ -102,6 +106,8 @@ exports.checkYarnVersion = function (minimalYarnVersion) {
           )
         );
       }
+      console.log();
+      console.log('Yarn version compatible ' + chalk.green('✓'));
       resolve('Yarn version compatible');
     });
   });
@@ -127,7 +133,10 @@ exports.checkIfRepositoryIsCloned = function () {
         .filter((line) => line.startsWith('origin'))
         .filter((line) => new RegExp(/create-express-app\.git/).test(line));
 
-      if (!isRepositoryCloned) {
+      if (
+        Array.isArray(isRepositoryCloned) &&
+        isRepositoryCloned.length === 0
+      ) {
         reject(new TypeError('create-express-app repository not found'));
       }
 
@@ -160,13 +169,16 @@ exports.initGitRepository = function () {
  * @desc Install Packages using NPM.
  * @function
  * @name installPackages
+ * @param {string} directory
  * @param {string} strategy
  * @returns {Promise}
  */
-exports.installPackages = function (strategy = 'npm') {
+exports.installPackages = function (directory, strategy) {
+  console.log();
   return new Promise((resolve, reject) => {
-    exec(`${strategy} install`, (err, stdout) => {
-      console.log('Installing packages. This might take a couple of minutes.');
+    console.log(directory, strategy);
+    exec(`cd ${directory} && ${strategy} install`, (err, stdout) => {
+      console.log('This might take a couple of minutes.');
 
       if (err) {
         reject(new TypeError(err));
@@ -195,7 +207,9 @@ exports.checkAppName = function (appName) {
         )} because of npm naming restrictions:\n`
       );
     }
-    resolve(`${appName} accepted`);
+    console.log();
+    console.log(`${appName} accepted ${chalk.green('✓')}`);
+    resolve('Project name accepted');
   });
 };
 
@@ -244,10 +258,10 @@ exports.createExpressTemplate = function (directory) {
     .then((answers) => {
       return module.exports.getTemplateInstallPackage(
         answers.template,
-        directory
+        directory,
+        'https://mysite.com/my-react-scripts-0.8.2.tgz'
       );
-    })
-    .then(() => module.exports.verifyRepositoryProcess());
+    });
 };
 
 /**
@@ -298,7 +312,6 @@ exports.verifyRepositoryProcess = function () {
   return Promise.all([
     module.exports.checkIfRepositoryIsCloned(),
     module.exports.initGitRepository(),
-    module.exports.happyCoding(),
   ]);
 };
 
@@ -311,6 +324,7 @@ exports.verifyRepositoryProcess = function () {
  * @returns {void}
  */
 exports.happyCoding = function (directory) {
+  console.log();
   console.log(chalk.green('Success! App created at ' + directory));
   console.log('Inside that directory, you can run several commands : ');
   console.log(
@@ -320,6 +334,7 @@ exports.happyCoding = function (directory) {
     chalk.cyan('yarn test') + '\n' + 'Starts the test runner.' + '\n'
   );
   console.log('Happy Coding');
+  process.exit();
 };
 
 /**
