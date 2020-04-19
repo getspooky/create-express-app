@@ -64,10 +64,10 @@ program
         console.log(npm.concat(chalk.green('✓')));
         console.log(yarn.concat(chalk.green('✓')));
         console.log(node.concat(chalk.green('✓')));
-        spinner.project.start();
-        initExpressApp(projectName, action.directory);
+        initExpressApp(projectName, action.directory)
+          .then(() => spinner.project.start())
+          .then(() => spinner.project.stop());
       })
-      .then(() => spinner.project.stop())
       .catch((err) => {
         console.log();
         console.log(chalk.red(err.message));
