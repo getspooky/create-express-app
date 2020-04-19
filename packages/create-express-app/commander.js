@@ -17,6 +17,8 @@ const {
   checkYarnVersion,
   checkNodeVersion,
   initExpressApp,
+  installPackages,
+  happyCoding,
 } = require('./createExpressApp');
 
 const { version, name, author } = require('./package.json');
@@ -31,8 +33,8 @@ const versionCompatibility = {
 };
 
 var spinner = {
-  check: ora('🎛 Checking Environment...'),
   project: ora('🧬 Creating Project...'),
+  installPackages: ora('📦 Installing packages...'),
 };
 
 _BANNER('Create Express App');
@@ -51,22 +53,29 @@ program
     '-d, --directory <project-directory>',
     'Setup the default folder structures to be used in the Project'
   )
+  .option('-u', '--use <strategy>', 'Selecting a package manager')
   .action(function (projectName, action) {
-    spinner.check.start();
     // Cheking NPM , Yarn and Node versions.
     Promise.all([
       checkNPMVersion(versionCompatibility.npm),
       checkYarnVersion(versionCompatibility.yarn),
       checkNodeVersion(versionCompatibility.node),
     ])
-      .then(([npm, yarn, node]) => {
-        spinner.check.stop();
-        console.log(npm.concat(chalk.green('✓')));
-        console.log(yarn.concat(chalk.green('✓')));
-        console.log(node.concat(chalk.green('✓')));
+      .then(() => {
         initExpressApp(projectName, action.directory)
           .then(() => spinner.project.start())
-          .then(() => spinner.project.stop());
+          .then(() => {
+            spinner.project.stop();
+            spinner.installPackages.start();
+            // When you create a new app, the CLI will use npm to install dependencies.
+            // If you have npm installed, but would prefer to use yarn ,
+            // you can append `--with yarn` or `-w yarn` to the creation command.
+            installPackages(action.directory, action.use || 'npm');
+          })
+          .then(() => {
+            spinner.installPackages.stop();
+            happyCoding(action.directory);
+          });
       })
       .catch((err) => {
         console.log();
