@@ -11,17 +11,20 @@
 
 const chalk = require('chalk');
 const inquirer = require('inquirer');
-const unzip = require('unzip');
-const { exec } = require('child_process');
+const ora = require('ora');
+const {
+  exec
+} = require('child_process');
 const compareVersions = require('compare-versions');
 const validateProjectName = require('validate-npm-package-name');
-const hyperquest = require('hyperquest');
 
 const supportedTemplates = [
   'cra-template-es5',
   'cra-template-typescript',
   'cra-template-es6',
 ];
+
+var spinner = ora('📥 Cloning project...');
 
 /**
  * @export
@@ -41,12 +44,12 @@ exports.checkNodeVersion = function (minimalNodeVersion) {
         reject(
           new Error(
             'You are running Node ' +
-              nodeVersion +
-              '.\n' +
-              'Create Express App requires Node ' +
-              minimalNodeVersion +
-              ' or higher. \n' +
-              'Please update your version of Node.'
+            nodeVersion +
+            '.\n' +
+            'Create Express App requires Node ' +
+            minimalNodeVersion +
+            ' or higher. \n' +
+            'Please update your version of Node.'
           )
         );
       }
@@ -230,9 +233,16 @@ exports.initExpressApp = function (appName, directory) {
     module.exports.killProcess();
   }
 
+  if (!directory.endsWith('/')) {
+    console.log(
+      chalk.red('Directory should end with slash')
+    );
+    module.exports.killProcess();
+  }
+
   return Promise.all([
     module.exports.checkAppName(appName),
-    module.exports.createExpressTemplate(directory),
+    module.exports.createExpressTemplate(directory.concat(appName)),
   ]);
 };
 
@@ -247,19 +257,18 @@ exports.initExpressApp = function (appName, directory) {
 exports.createExpressTemplate = function (directory) {
   console.log();
   return inquirer
-    .prompt([
-      {
-        type: 'list',
-        name: 'template',
-        message: 'Please specify a template for the created project',
-        choices: supportedTemplates,
-      },
-    ])
+    .prompt([{
+      type: 'list',
+      name: 'template',
+      message: 'Please specify a template for the created project',
+      choices: supportedTemplates,
+    }, ])
     .then((answers) => {
+      let getTemplate = require('./template.json');
       return module.exports.getTemplateInstallPackage(
         answers.template,
         directory,
-        'https://mysite.com/my-react-scripts-0.8.2.tgz'
+        getTemplate[answers.template].link
       );
     });
 };
@@ -270,34 +279,31 @@ exports.createExpressTemplate = function (directory) {
  * @function
  * @name getTemplateInstallPackage
  * @param {string} template
- * @param {string} originalDirectory
- * @param {string} path
+ * @param {string} dest
+ * @param {string} url
  * @returns {Promise}
  */
-exports.getTemplateInstallPackage = function (
-  template,
-  originalDirectory,
-  path
-) {
+exports.getTemplateInstallPackage = function (template, dest, url) {
   return new Promise((resolve, reject) => {
     // make sure that all given templats starts with cra-template-
     // @example cra-template-es6
     if (!supportedTemplates.includes(template))
       reject(new TypeError('The given template does not exists!'));
-    if (path.match(/^.+\.(tgz|tar\.gz)$/) === null)
-      reject(new TypeError(path + ' should match format : ^.+.(tgz|tar.gz)$'));
-    // extract zip file to the specified path
-    hyperquest(path)
-      .on('error', function (err) {
-        reject(new TypeError('Unable to open ' + path));
-      })
-      .pipe(
-        unzip.Extract({
-          path: originalDirectory,
-        })
+    if (url.match(/^(https:\/\/github.com).+/) === null)
+      reject(
+        new TypeError(url + ' should match format : ^(https:\/\/github.com).+')
       );
-    //
-    resolve('Installed successfully');
+    spinner.start();
+    // clone specific template from repository
+    exec(`git clone ${url} ${dest}/`, (err, stdout) => {
+      console.log();
+      if (err) {
+        reject(new TypeError(err));
+      } else {
+        spinner.stop();
+        resolve(stdout);
+      }
+    });
   });
 };
 
