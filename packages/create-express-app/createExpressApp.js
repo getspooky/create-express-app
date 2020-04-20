@@ -10,6 +10,7 @@
 'use strict';
 
 const chalk = require('chalk');
+const fs = require('fs');
 const inquirer = require('inquirer');
 const ora = require('ora');
 const {
@@ -234,9 +235,17 @@ exports.initExpressApp = function (appName, directory) {
     module.exports.killProcess();
   }
 
+  if (fs.existsSync(directory)) {
+    console.log();
+    console.log(
+      chalk.red(appName + ' project already exists')
+    );
+    module.exports.killProcess();
+  }
+
   return Promise.all([
     module.exports.checkAppName(appName),
-    module.exports.createExpressTemplate(directory.concat(appName)),
+    module.exports.createExpressTemplate(directory),
   ]);
 };
 
