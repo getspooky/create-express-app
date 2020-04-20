@@ -11,9 +11,9 @@
   "description": "ES6 template for Create Express App.",
   "main": "index.js",
   "scripts": {
-    "start": "express-scripts start",
-    "test": "express-scripts test",
-    "build": "express-scripts build"
+    "start": "express-artisan start",
+    "test": "express-artisan test",
+    "build": "express-artisan build"
   },
   "author": "Yasser Ameur El Idrissi",
   "repository": {

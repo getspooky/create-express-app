@@ -13,9 +13,9 @@
   "contributors": [],
   "main": "index.js",
   "scripts": {
-    "start": "express-scripts start",
-    "test": "express-scripts test",
-    "build": "express-scripts build"
+    "start": "express-artisan start",
+    "test": "express-artisan test",
+    "build": "express-artisan build"
   },
   "repository": {
     "type": "git",
