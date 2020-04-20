@@ -80,7 +80,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recen
 Please see [License File](LICENSE.md) for more information.
 
 <p align="center">
- <img src="website/media/coding.jpeg" width="200" height="200" />
+ <img src="docs/media/coding.jpeg" width="200" height="200" />
 </p>
 
 <div align="center">
