@@ -15,6 +15,9 @@ const ora = require('ora');
 const {
   exec
 } = require('child_process');
+const {
+  _EMOJIS
+} = require('./interface');
 const compareVersions = require('compare-versions');
 const validateProjectName = require('validate-npm-package-name');
 
@@ -24,7 +27,7 @@ const supportedTemplates = [
   'cra-template-es6',
 ];
 
-var spinner = ora('📥 Cloning project...');
+var spinner = ora(_EMOJIS.INSTALL + ' Cloning project...');
 
 /**
  * @export
@@ -179,10 +182,8 @@ exports.initGitRepository = function () {
 exports.installPackages = function (directory, strategy) {
   console.log();
   return new Promise((resolve, reject) => {
-    console.log(directory, strategy);
+    console.log();
     exec(`cd ${directory} && ${strategy} install`, (err, stdout) => {
-      console.log('This might take a couple of minutes.');
-
       if (err) {
         reject(new TypeError(err));
       } else {
@@ -230,13 +231,6 @@ exports.initExpressApp = function (appName, directory) {
     console.log();
     console.log(chalk.red('Please specify the project directory'));
     console.log(`Run ${chalk.cyan(`--help`)} to see all options.`);
-    module.exports.killProcess();
-  }
-
-  if (!directory.endsWith('/')) {
-    console.log(
-      chalk.red('Directory should end with slash')
-    );
     module.exports.killProcess();
   }
 
@@ -339,7 +333,7 @@ exports.happyCoding = function (directory) {
   console.log(
     chalk.cyan('yarn test') + '\n' + 'Starts the test runner.' + '\n'
   );
-  console.log('Happy Coding');
+  console.log('Happy Coding ' + _EMOJIS.RAISED_HANDS);
   process.exit();
 };
 
