@@ -42,14 +42,14 @@ const versionCompatibility = {
 };
 
 var spinner = {
-  project: ora('🧬 Creating Project...'),
-  installPackages: ora('📦 Installing packages...'),
+  project: ora(_EMOJIS.PROJECT + ' Creating Project...'),
+  installPackages: ora(_EMOJIS.PACKAGE + ' Installing packages...'),
 };
 
 _BANNER('Create Express App');
 
 console.log(
-  `Created and maintained with ${chalk.bold.red(_EMOJIS.HEART)}  by ${author}`
+  `Created and maintained with ${chalk.bold.red(_EMOJIS.HEART)} by ${author}`
 );
 console.log();
 console.log('Tools Version ' + chalk.green(version));
@@ -64,6 +64,15 @@ program
   )
   .option('-u', '--use <strategy>', 'Selecting a package manager')
   .action(function (projectName, action) {
+
+    let directory = action.directory;
+
+    if (!directory.endsWith('/')) {
+      console.log(
+        chalk.red('Directory should end with slash')
+      );
+      killProcess();
+    }
     // Cheking NPM , Yarn and Node versions.
     Promise.all([
         checkNPMVersion(versionCompatibility.npm),
@@ -71,7 +80,7 @@ program
         checkNodeVersion(versionCompatibility.node),
       ])
       .then(() => {
-        initExpressApp(projectName, action.directory)
+        initExpressApp(projectName, directory)
           .then(() => spinner.project.start())
           .then(() => {
             spinner.project.stop();
@@ -79,11 +88,11 @@ program
             // When you create a new app, the CLI will use npm to install dependencies.
             // If you have npm installed, but would prefer to use yarn ,
             // you can append `--with yarn` or `-w yarn` to the creation command.
-            installPackages(action.directory, action.use || 'npm');
+            installPackages(directory.concat(projectName), action.use || 'npm');
           })
           .then(() => {
             spinner.installPackages.stop();
-            happyCoding(action.directory);
+            happyCoding(directory);
           });
       })
       .catch((err) => {
