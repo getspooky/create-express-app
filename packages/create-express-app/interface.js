@@ -46,4 +46,7 @@ exports._EMOJIS = {
   ZAP: get('zap'),
   BOOM: get('boom'),
   PRAY: get('pray'),
+  PACKAGE: get('📦'),
+  PROJECT: get('🧬'),
+  INSTALL: get('📥'),
 };
