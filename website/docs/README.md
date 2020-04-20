@@ -27,9 +27,9 @@ create-express-app init my-project
 You will be prompted to pick a template.
 Supported template are :
 
-- ES5
-- ES6
-- TypeScript
+- cra-template-es5
+- cra-template-es6
+- cra-template-typescript
 
 Each template comes with a basic `Jest` + `ESLint` setup.
 
@@ -39,11 +39,13 @@ Then Runs the app in development mode and open http://localhost:4200/ to see you
 
 # Selecting a package manager
 
-When you create a new app, the CLI will use npm to install dependencies. If you have npm installed, but would prefer to use yarn , you can append `--with yarn` or `-w yarn` to the creation command. For example:
+When you create a new app, the CLI will use npm to install dependencies. If you have npm installed, but would prefer to use yarn , you can append `--use yarn` or `-u yarn` to the creation command. For example:
 
 ```sh
-create-express-app init my-project
+create-express-app init my-project --use yarn
 ```
+
+# Folder Structure
 
 Inside my-project directory, it will generate the initial project structure and install the transitive dependencies:
 
@@ -68,11 +70,40 @@ my-project
 
 Inside the newly created project, you can run some built-in commands:
 
-| Script | Description                                                                                         |
-| ------ | --------------------------------------------------------------------------------------------------- |
-| start  | Runs the app in development mode.                                                                   |
-| test   | Runs the test in an interactive mode                                                                |
-| build  | - Convert `TypeScript` or `ECMAScript 2015+` code into a backwards compatible version of JavaScript |
+| Script | Description                                                                                       |
+| ------ | ------------------------------------------------------------------------------------------------- |
+| start  | Runs the app in development mode.                                                                 |
+| test   | Runs the test in an interactive mode                                                              |
+| build  | Convert `TypeScript` or `ECMAScript 2015+` code into a backwards compatible version of JavaScript |
+
+# Wrinting Template
+
+In addition to the templates provided with create-express-app, you may also build your own custom templates.
+Templates are typically stored in the `packages/` directory.
+
+# Registering Template
+
+You may also manually register templates by adding its `version` , `link` , `description` to the `packages/create-express-app/template.json` file.
+
+```json
+{
+  "cra-template-es5": {
+    "version": "1.0.0",
+    "link": "https://example.com/cra-template-es5.tgz",
+    "description": "The base template for Create Express App."
+  },
+  "cra-template-es6": {
+    "version": "1.0.0",
+    "link": "https://example.com/cra-template-es6.tgz",
+    "description": "ES6 template for Create Express App"
+  },
+  "cra-template-typescript": {
+    "version": "1.0.0",
+    "link": "https://example.com/cra-template-typescript.tgz",
+    "description": "TypeScript template for Create Express App."
+  }
+}
+```
 
 # Testing
 
