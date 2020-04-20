@@ -66,6 +66,7 @@ program
   .action(function (projectName, action) {
 
     let directory = action.directory;
+    let projectPath = action.directory.concat(projectName);
 
     if (!directory.endsWith('/')) {
       console.log(
@@ -80,7 +81,7 @@ program
         checkNodeVersion(versionCompatibility.node),
       ])
       .then(() => {
-        initExpressApp(projectName, directory)
+        initExpressApp(projectName, projectPath)
           .then(() => spinner.project.start())
           .then(() => {
             spinner.project.stop();
@@ -88,11 +89,11 @@ program
             // When you create a new app, the CLI will use npm to install dependencies.
             // If you have npm installed, but would prefer to use yarn ,
             // you can append `--with yarn` or `-w yarn` to the creation command.
-            installPackages(directory.concat(projectName), action.use || 'npm');
+            installPackages(projectPath, action.use || 'npm');
           })
           .then(() => {
             spinner.installPackages.stop();
-            happyCoding(directory);
+            happyCoding(projectPath);
           });
       })
       .catch((err) => {
