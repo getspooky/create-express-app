@@ -298,7 +298,7 @@ exports.getTemplateInstallPackage = function (template, dest, url) {
       );
     spinner.start();
     // clone specific template from repository
-    exec(`git clone ${url} ${dest}/`, (err, stdout) => {
+    exec(`git clone -b ${template} ${url} ${dest}/`, (err, stdout) => {
       console.log();
       if (err) {
         reject(new TypeError(err));
