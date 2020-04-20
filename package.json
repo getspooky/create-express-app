@@ -1,5 +1,8 @@
 {
   "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "name": "create-express-app",
   "version": "1.0.0",
   "description": "Get Express.js projects ready fast by running one command",
@@ -19,6 +22,7 @@
   },
   "homepage": "https://github.com/getspooky/create-express-app#readme",
   "devDependencies": {
+    "@types/jest": "^25.2.1",
     "eslint": "^6.8.0",
     "prettier": "^2.0.2"
   },
