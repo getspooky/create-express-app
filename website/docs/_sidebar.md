@@ -3,6 +3,8 @@
 - [Creating an App](/README.md#Creating-an-App)
 - [Selecting a package manager](/README.md#Selecting-a-package-manager)
 - [Available Scripts](/README.md#Available-Scripts)
+- [Wrinting Template](/README.md#Wrinting-Template)
+- [Registering Template](/README.md#Registering-Template)
 - [Testing](/README.md#Testing)
 - [Security](/README.md#Security)
 - [Security Vulnerabilities](/README.md#Security-Vulnerabilities)
