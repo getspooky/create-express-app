@@ -1,4 +1,4 @@
-# create-expressjs-app
+# create-express-app
 
 <sub>Created and maintained with ❤️ by <a href="https://github.com/getspooky">getspooky</a>.</sub>
 
