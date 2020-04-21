@@ -17,11 +17,11 @@ You’ll need to have Node >= 8.10 on your local development machine
 Installation is done using the npm install command:
 
 ```sh
-npm install -g create-express-app
+npm install -g create-expressjs-app
 ```
 
 ```sh
-create-express-app init my-project
+create-expressjs-app init my-project
 ```
 
 You will be prompted to pick a template.
@@ -42,7 +42,7 @@ Then Runs the app in development mode and open http://localhost:4200/ to see you
 When you create a new app, the CLI will use npm to install dependencies. If you have npm installed, but would prefer to use yarn , you can append `--use yarn` or `-u yarn` to the creation command. For example:
 
 ```sh
-create-express-app init my-project --use yarn
+create-expressjs-app init my-project --use yarn
 ```
 
 # Folder Structure
