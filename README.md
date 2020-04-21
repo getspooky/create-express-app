@@ -7,7 +7,6 @@ It offers a modern build setup with no configuration. At the same time, it still
 Create Express App works on macOS, Windows, and Linux.<br>
 
 - If something doesn’t work, please file an [issue](https://github.com/getspooky/create-express-app/issues).<br>
-- If you have questions or need help, please ask in our [Spectrum community]().
 
 # Quick Overview
 
