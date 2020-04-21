@@ -9,13 +9,8 @@
 
 const chalk = require('chalk');
 const ora = require('ora');
-const {
-  Command
-} = require('commander');
-const {
-  _BANNER,
-  _EMOJIS
-} = require('./interface');
+const { Command } = require('commander');
+const { _BANNER, _EMOJIS } = require('./interface');
 const {
   killProcess,
   checkNPMVersion,
@@ -26,11 +21,7 @@ const {
   happyCoding,
 } = require('./createExpressApp');
 
-const {
-  version,
-  name,
-  author
-} = require('./package.json');
+const { version, name, author } = require('./package.json');
 const program = new Command(name);
 program.version(version);
 
@@ -49,7 +40,7 @@ var spinner = {
 _BANNER('Create Express App');
 
 console.log(
-  `Created and maintained with ${chalk.bold.red(_EMOJIS.HEART)} by ${author}`
+  `Created and maintained with ${chalk.bold.red(_EMOJIS.HEART)}  by ${author}`
 );
 console.log();
 console.log('Tools Version ' + chalk.green(version));
@@ -64,22 +55,32 @@ program
   )
   .option('-u', '--use <strategy>', 'Selecting a package manager')
   .action(function (projectName, action) {
+    let directory = null;
 
-    let directory = action.directory;
-    let projectPath = action.directory.concat(projectName);
+    if (typeof action.directory === 'undefined') {
+      console.log();
+      console.log(
+        chalk.yellow(
+          'By default create-express-app uses your current directory'
+        )
+      );
+      directory = process.cwd() + '/';
+    } else {
+      directory = action.directory;
+    }
+
+    let projectPath = directory.concat(projectName);
 
     if (!directory.endsWith('/')) {
-      console.log(
-        chalk.red('Directory should end with slash')
-      );
+      console.log(chalk.red('Directory should end with slash'));
       killProcess();
     }
     // Cheking NPM , Yarn and Node versions.
     Promise.all([
-        checkNPMVersion(versionCompatibility.npm),
-        checkYarnVersion(versionCompatibility.yarn),
-        checkNodeVersion(versionCompatibility.node),
-      ])
+      checkNPMVersion(versionCompatibility.npm),
+      checkYarnVersion(versionCompatibility.yarn),
+      checkNodeVersion(versionCompatibility.node),
+    ])
       .then(() => {
         initExpressApp(projectName, projectPath)
           .then(() => spinner.project.start())
@@ -101,14 +102,14 @@ program
         console.log(chalk.red(err.message));
         console.log(
           'If you feel have found a security issue or concern with create-express-app' +
-          '\n' +
-          'Please use the following link to create a new issue: '
+            '\n' +
+            'Please use the following link to create a new issue: '
         );
         console.log(
           'Link : ' +
-          chalk.underline.blue(
-            'https://github.com/getspooky/create-express-app/issues'
-          )
+            chalk.underline.blue(
+              'https://github.com/getspooky/create-express-app/issues'
+            )
         );
         killProcess();
       });
