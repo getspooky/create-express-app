@@ -1,4 +1,4 @@
-# create-express-app
+# create-expressjs-app
 
 <sub>Created and maintained with ❤️ by <a href="https://github.com/getspooky">getspooky</a>.</sub>
 
@@ -14,11 +14,11 @@ Create Express App works on macOS, Windows, and Linux.<br>
 Installation is done using the npm install command:
 
 ```sh
-npm install -g create-express-app
+npm install -g create-expressjs-app
 ```
 
 ```sh
-create-express-app init my-project
+create-expressjs-app init my-project
 cd my-project
 ```
 
@@ -50,7 +50,7 @@ my-project
 
 ## Running Tests
 
-Create Express App uses Jest as its test runner
+Create Expressjs App uses Jest as its test runner
 
 ```sh
 npm run test
@@ -58,18 +58,18 @@ npm run test
 
 ## Requirements
 
-create-express-app has a few requirements you should be aware of before installing:
+create-expressjs-app has a few requirements you should be aware of before installing:
 
 - Node.js >= 8.0.0
 - npm >= 6.10.3
 
 ## Contributing
 
-We encourage you to contribute to create-express-app! Please check out the [Contributing](/Contributing.md) to create-express-app guide for guidelines about how to proceed.
+We encourage you to contribute to create-expressjs-app! Please check out the [Contributing](/Contributing.md) to create-expressjs-app guide for guidelines about how to proceed.
 
 ## Security Vulnerabilities
 
-If you discover a security vulnerability within create-express-app, please send an e-mail to `Yasser Ameur El Idrissi` via getspookydev@gmail.com . All security vulnerabilities will be promptly addressed.
+If you discover a security vulnerability within create-expressjs-app, please send an e-mail to `Yasser Ameur El Idrissi` via getspookydev@gmail.com . All security vulnerabilities will be promptly addressed.
 
 ## Changelog
 
