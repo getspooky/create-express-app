@@ -2,6 +2,8 @@
 
 <sub>Created and maintained with ❤️ by <a href="https://github.com/getspooky">getspooky</a>.</sub>
 
+<img src="docs/media/carbonTerminal.png" />
+
 ![npm](https://img.shields.io/npm/v/create-expressjs-app?style=for-the-badge)
 ![GitHub](https://img.shields.io/github/license/getspooky/create-express-app?style=for-the-badge)
 ![npm](https://img.shields.io/npm/dw/create-expressjs-app?style=for-the-badge)
