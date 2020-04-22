@@ -4,6 +4,8 @@
 
 Create Express App is a command-line interface tool that helps you to initialize, develop and maintain your Expressjs applications. It offers a modern build setup with no configuration. At the same time, it still offers the flexibility to tweak the config of each tool.
 
+<img src="../media/carbonTerminal.png" style="margin-top:-20px;" />
+
 # Requirements
 
 create-express-app has a few requirements you should be aware of before installing:
