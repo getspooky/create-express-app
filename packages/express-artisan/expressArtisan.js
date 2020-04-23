@@ -22,6 +22,7 @@ const {
 
 // The 'unhandledRejection' event is emitted whenever a Promise is rejected.
 process.on('unhandledRejection', err => {
+  console.log();
   console.log(
     chalk.red(err.message),
   );
@@ -31,6 +32,7 @@ process.on('unhandledRejection', err => {
       'https://github.com/getspooky/create-express-app/issues'
     )
   );
+  process.exit(0);
 });
 
 const supportedScripts = ['start', 'build', 'test'];
