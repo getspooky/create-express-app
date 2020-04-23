@@ -37,7 +37,7 @@ var spinner = {
 
 const supportedTemplates = [
   'cra-template-es5',
-  'cra-template-typescript',
+  //'cra-template-typescript',
   'cra-template-es6',
 ];
 
