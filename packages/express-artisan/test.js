@@ -10,10 +10,8 @@
 'use strict';
 
 const inquirer = require('inquirer');
-const chalk = require('chalk');
 const jest = require('jest');
-const { exec } = require('child_process');
-const jestConfig = require('../jest-config-create-express-app');
+const jestConfig = require('jest-config-create-express-app');
 
 // Many of the options shown below can also be used together to
 // run tests exactly the way you want
@@ -42,18 +40,16 @@ const supportedJestOptions = [
  */
 (function test() {
   return inquirer
-    .prompt([
-      {
-        type: 'checkbox',
-        name: 'options',
-        message:
-          'Many of the options shown below can also be used together to run tests exactly the way you want',
-        choices: [...supportedJestOptions],
-      },
-    ])
+    .prompt([{
+      type: 'checkbox',
+      name: 'options',
+      message: 'Many of the options shown below can also be used together to run tests exactly the way you want',
+      choices: [...supportedJestOptions],
+    }, ])
     .then((answers) => {
       //
-      const options = ' --config=' + JSON.stringify(jestConfig);
+      const options =
+        ' --config=' + JSON.stringify(jestConfig) + ' ' + answers.options.join(' ');
       return jest
         .run(options)
         .then((success) => {
