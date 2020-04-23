@@ -4,10 +4,12 @@
  * (c) Yasser Ameur El Idrissi <getspookydev@gmail.com>
  *
  * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code. 
+ * file that was distributed with this source code.
  */
 
 'use strict';
+
+require = require('esm')(module);
 
 const path = require('path');
 const chalk = require('chalk');
@@ -34,15 +36,15 @@ const spinner = ora('📡 Starting Nodejs Server...');
  */
 (function start() {
   return inquirer
-    .prompt([{
-      type: 'list',
-      name: 'protocol',
-      message: 'Please specify the protocol!',
-      choices: [...supportedProtocols],
-    }, ])
-    .then(({
-      protocol
-    }) => {
+    .prompt([
+      {
+        type: 'list',
+        name: 'protocol',
+        message: 'Please specify the protocol!',
+        choices: [...supportedProtocols],
+      },
+    ])
+    .then(({ protocol }) => {
       spinner.start();
       return require(protocol)
         .createServer(
@@ -59,6 +61,6 @@ const spinner = ora('📡 Starting Nodejs Server...');
             LAN: ${chalk.magenta(`http://${ip.address()}:${PORT}`)}
        `);
           console.log(chalk.blue(`Press ${chalk.italic('CTRL-C')} to stop`));
-        })
+        });
     });
 })();
