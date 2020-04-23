@@ -22,13 +22,18 @@ const {
 const compareVersions = require('compare-versions');
 const validateProjectName = require('validate-npm-package-name');
 
+var spinner = {
+  checkingEnv: ora(_EMOJIS.CHECKING_ENV + 'Checking Environment...'),
+  project: ora(_EMOJIS.CLONE + ' Creating Project...'),
+  installPackages: ora(_EMOJIS.PACKAGE + ' Installing Packages...'),
+};
+
+
 const supportedTemplates = [
   'cra-template-es5',
   'cra-template-typescript',
   'cra-template-es6',
 ];
-
-var spinner = ora(_EMOJIS.INSTALL + ' Cloning project...');
 
 /**
  * @export
@@ -181,13 +186,13 @@ exports.initGitRepository = function () {
  * @returns {Promise}
  */
 exports.installPackages = function (directory, strategy) {
-  console.log();
   return new Promise((resolve, reject) => {
-    console.log();
+    spinner.installPackages.start();
     exec(`cd ${directory} && ${strategy} install`, (err, stdout) => {
       if (err) {
         reject(new TypeError(err));
       } else {
+        spinner.installPackages.stop();
         resolve(stdout);
       }
     });
@@ -287,7 +292,9 @@ exports.createExpressTemplate = function (directory) {
  * @returns {Promise}
  */
 exports.getTemplateInstallPackage = function (template, dest, url) {
+  console.log();
   return new Promise((resolve, reject) => {
+    spinner.project.start();
     // make sure that all given templats starts with cra-template-
     // @example cra-template-es6
     if (!supportedTemplates.includes(template))
@@ -296,14 +303,13 @@ exports.getTemplateInstallPackage = function (template, dest, url) {
       reject(
         new TypeError(url + ' should match format : ^(https:\/\/github.com).+')
       );
-    spinner.start();
     // clone specific template from repository
     exec(`git clone -b ${template} ${url} ${dest}/`, (err, stdout) => {
       console.log();
       if (err) {
         reject(new TypeError(err));
       } else {
-        spinner.stop();
+        spinner.project.stop();
         resolve(stdout);
       }
     });
@@ -343,7 +349,7 @@ exports.happyCoding = function (directory) {
     chalk.cyan('yarn test') + '\n' + 'Starts the test runner.' + '\n'
   );
   console.log('Happy Coding ' + _EMOJIS.RAISED_HANDS);
-  process.exit();
+  process.exit(0);
 };
 
 /**

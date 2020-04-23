@@ -9,8 +9,13 @@
 
 const chalk = require('chalk');
 const ora = require('ora');
-const { Command } = require('commander');
-const { _BANNER, _EMOJIS } = require('./interface');
+const {
+  Command
+} = require('commander');
+const {
+  _BANNER,
+  _EMOJIS
+} = require('./interface');
 const {
   killProcess,
   checkNPMVersion,
@@ -21,7 +26,11 @@ const {
   happyCoding,
 } = require('./createExpressApp');
 
-const { version, name, author } = require('./package.json');
+const {
+  version,
+  name,
+  author
+} = require('./package.json');
 const program = new Command(name);
 program.version(version);
 
@@ -32,15 +41,14 @@ const versionCompatibility = {
   node: '8.1.0',
 };
 
-var spinner = {
-  project: ora(_EMOJIS.PROJECT + ' Creating Project...'),
-  installPackages: ora(_EMOJIS.PACKAGE + ' Installing packages...'),
-};
-
 _BANNER('Create Express App');
 
 console.log(
-  `Created and maintained with ${chalk.bold.red(_EMOJIS.HEART)}  by ${author}`
+  'Created and maintained with ' +
+  chalk.bold.red(_EMOJIS.HEART) +
+  '  by ' +
+  author.nickname +
+  chalk.blue('<' + author.email + '>')
 );
 console.log();
 console.log('Tools Version ' + chalk.green(version));
@@ -77,39 +85,36 @@ program
     }
     // Cheking NPM , Yarn and Node versions.
     Promise.all([
-      checkNPMVersion(versionCompatibility.npm),
-      checkYarnVersion(versionCompatibility.yarn),
-      checkNodeVersion(versionCompatibility.node),
-    ])
-      .then(() => {
+        checkNPMVersion(versionCompatibility.npm),
+        checkYarnVersion(versionCompatibility.yarn),
+        checkNodeVersion(versionCompatibility.node),
+      ])
+      .then(() =>
         initExpressApp(projectName, projectPath)
-          .then(() => spinner.project.start())
-          .then(() => {
-            spinner.project.stop();
-            spinner.installPackages.start();
-            // When you create a new app, the CLI will use npm to install dependencies.
-            // If you have npm installed, but would prefer to use yarn ,
-            // you can append `--with yarn` or `-w yarn` to the creation command.
-            installPackages(projectPath, action.use || 'npm');
-          })
-          .then(() => {
-            spinner.installPackages.stop();
+        .then(() =>
+          // When you create a new app, the CLI will use npm to install dependencies.
+          // If you have npm installed, but would prefer to use yarn ,
+          // you can append `--with yarn` or `-w yarn` to the creation command.
+          installPackages(projectPath, action.use || 'npm').then((stdout) => {
+            console.log();
+            console.log(stdout);
             happyCoding(projectPath);
-          });
-      })
+          })
+        )
+      )
       .catch((err) => {
         console.log();
         console.log(chalk.red(err.message));
         console.log(
           'If you feel have found a security issue or concern with create-express-app' +
-            '\n' +
-            'Please use the following link to create a new issue: '
+          '\n' +
+          'Please use the following link to create a new issue: '
         );
         console.log(
           'Link : ' +
-            chalk.underline.blue(
-              'https://github.com/getspooky/create-express-app/issues'
-            )
+          chalk.underline.blue(
+            'https://github.com/getspooky/create-express-app/issues'
+          )
         );
         killProcess();
       });
