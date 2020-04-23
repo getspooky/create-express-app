@@ -8,7 +8,6 @@
  */
 
 const chalk = require('chalk');
-const ora = require('ora');
 const {
   Command
 } = require('commander');
@@ -18,9 +17,7 @@ const {
 } = require('./interface');
 const {
   killProcess,
-  checkNPMVersion,
-  checkYarnVersion,
-  checkNodeVersion,
+  checkingEnvironment,
   initExpressApp,
   installPackages,
   happyCoding,
@@ -33,13 +30,6 @@ const {
 } = require('./package.json');
 const program = new Command(name);
 program.version(version);
-
-/* Check NPM , Yarn and Node Compatibility */
-const versionCompatibility = {
-  npm: '3.6.0',
-  yarn: '1.12.0',
-  node: '8.1.0',
-};
 
 _BANNER('Create Express App');
 
@@ -84,11 +74,7 @@ program
       killProcess();
     }
     // Cheking NPM , Yarn and Node versions.
-    Promise.all([
-        checkNPMVersion(versionCompatibility.npm),
-        checkYarnVersion(versionCompatibility.yarn),
-        checkNodeVersion(versionCompatibility.node),
-      ])
+    checkingEnvironment()
       .then(() =>
         initExpressApp(projectName, projectPath)
         .then(() =>
@@ -96,7 +82,6 @@ program
           // If you have npm installed, but would prefer to use yarn ,
           // you can append `--with yarn` or `-w yarn` to the creation command.
           installPackages(projectPath, action.use || 'npm').then((stdout) => {
-            console.log();
             console.log(stdout);
             happyCoding(projectPath);
           })

@@ -22,8 +22,14 @@ const {
 const compareVersions = require('compare-versions');
 const validateProjectName = require('validate-npm-package-name');
 
+/* Check NPM , Yarn and Node Compatibility */
+const versionCompatibility = {
+  npm: '3.6.0',
+  yarn: '1.12.0',
+  node: '8.1.0',
+};
+
 var spinner = {
-  checkingEnv: ora(_EMOJIS.CHECKING_ENV + 'Checking Environment...'),
   project: ora(_EMOJIS.CLONE + ' Creating Project...'),
   installPackages: ora(_EMOJIS.PACKAGE + ' Installing Packages...'),
 };
@@ -125,6 +131,22 @@ exports.checkYarnVersion = function (minimalYarnVersion) {
   });
 };
 
+
+/**
+ * @export
+ * @desc Requirements that should be checked before installing.
+ * @function
+ * @name checkingEnvironment
+ * @returns {Promise}
+ */
+exports.checkingEnvironment = function () {
+  return Promise.all([
+    module.exports.checkNPMVersion(versionCompatibility.npm),
+    module.exports.checkYarnVersion(versionCompatibility.yarn),
+    module.exports.checkNodeVersion(versionCompatibility.node),
+  ]);
+}
+
 /**
  * @export
  * @desc Check GitHub repository is cloned.
@@ -166,6 +188,7 @@ exports.checkIfRepositoryIsCloned = function () {
  */
 exports.initGitRepository = function () {
   return new Promise((resolve, reject) => {
+    spinner.checkingEnv.stop()
     exec('git init', (err, stdout) => {
       if (err) {
         reject(new TypeError(err));
