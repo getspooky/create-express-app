@@ -1,9 +1,11 @@
 {
-  "name": "create-express-app",
-  "version": "1.0.0",
+  "name": "create-expressjs-app",
+  "version": "1.0.1",
   "description": "Create Express application",
   "main": "index.js",
-  "bin": "./index.js",
+  "bin": {
+    "create-expressjs-app": "./index.js"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/getspooky/create-express-app.git",
@@ -16,7 +18,11 @@
     "url": "https://github.com/getspooky/create-express-app/issues"
   },
   "scripts": {},
-  "author": "Yasser Ameur El Idrissi",
+  "author": {
+    "name": "Yasser Ameur El Idrissi",
+    "nickname": "getspooky",
+    "email": "getspookydev@gmail.com"
+  },
   "contributors": [],
   "license": "MIT",
   "dependencies": {
