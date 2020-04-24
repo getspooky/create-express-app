@@ -14,13 +14,8 @@
   "bugs": {
     "url": "https://github.com/getspooky/create-express-app/issues"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "author": "Yasser Ameur El Idrissi",
   "contributors": [],
   "license": "MIT",
-  "dependencies": {
-    "ts-jest": "^25.3.1"
-  }
+  "dependencies": {}
 }

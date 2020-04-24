@@ -7,16 +7,11 @@
  * file that was distributed with this source code.
  */
 
-const path = require('path');
-
 module.exports = {
   roots: ['<rootDir>/src'],
-  collectCoverageFrom: ['src/**/*.{js,ts}'],
-  testRegex: '\\.(test|spec)\\.(ts|js)$',
-  moduleFileExtensions: ['js', 'ts'],
-  transform: {
-    '^.+\\.ts$': path.join(__dirname, 'node_modules/ts-jest'),
-  },
+  collectCoverageFrom: ['src/**/*.js'],
+  testRegex: '\\.(test|spec)\\.js$',
+  moduleFileExtensions: ['js'],
   testPathIgnorePatterns: ['/(build|docs|node_modules)/'],
   coverageReporters: ['json', 'lcov'],
   transformIgnorePatterns: ['<rootDir>/node_modules/'],
