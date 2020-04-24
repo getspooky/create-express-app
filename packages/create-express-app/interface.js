@@ -49,4 +49,5 @@ exports._EMOJIS = {
   PACKAGE: get('📦'),
   CHECKING_ENV: get('🧬'),
   CLONE: get('📥'),
+  REGISTER: get('🔌')
 };
