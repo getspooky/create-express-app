@@ -8,6 +8,7 @@
  */
 
 const chalk = require('chalk');
+const inquirer = require('inquirer');
 const {
   Command
 } = require('commander');
@@ -20,6 +21,7 @@ const {
   checkingEnvironment,
   initExpressApp,
   installPackages,
+  registerTemplate,
   happyCoding,
 } = require('./createExpressApp');
 
@@ -44,15 +46,30 @@ console.log();
 console.log('Tools Version ' + chalk.green(version));
 
 program
+  .command('new template')
+  .description('Register new template')
+  .action(function () {
+    registerTemplate();
+  });
+
+program
   .command('init <projectName>')
   .alias('ci')
   .description('init create-express-app project')
   .option(
     '-d, --directory <project-directory>',
-    'Setup the default folder structures to be used in the Project'
+    'Setup the default folder structures to be used in the Project',
   )
-  .option('-u', '--use <strategy>', 'Selecting a package manager')
+  .option(
+    '-u , --use <strategy>',
+    'Selecting a package manager'
+  )
+  .option(
+    '-rt , --registerTemplate <register-template>',
+    'Registering Template'
+  )
   .action(function (projectName, action) {
+    //
     let directory = null;
 
     if (typeof action.directory === 'undefined') {
@@ -73,6 +90,7 @@ program
       console.log(chalk.red('Directory should end with slash'));
       killProcess();
     }
+
     // Cheking NPM , Yarn and Node versions.
     checkingEnvironment()
       .then(() =>

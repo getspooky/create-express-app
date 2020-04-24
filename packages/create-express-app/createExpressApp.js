@@ -10,15 +10,14 @@
 'use strict';
 
 const chalk = require('chalk');
+const path = require('path');
 const fs = require('fs');
 const inquirer = require('inquirer');
 const ora = require('ora');
-const {
-  exec
-} = require('child_process');
-const {
-  _EMOJIS
-} = require('./interface');
+const questions = require('./questions');
+const templates = require('./template.json');
+const { exec } = require('child_process');
+const { _EMOJIS } = require('./interface');
 const compareVersions = require('compare-versions');
 const validateProjectName = require('validate-npm-package-name');
 
@@ -32,14 +31,10 @@ const versionCompatibility = {
 var spinner = {
   project: ora(_EMOJIS.CLONE + ' Creating Project...'),
   installPackages: ora(_EMOJIS.PACKAGE + ' Installing Packages...'),
+  registerTemplate: ora(_EMOJIS.REGISTER + 'Registering Template...'),
 };
 
-
-const supportedTemplates = [
-  'cra-template-es5',
-  //'cra-template-typescript',
-  'cra-template-es6',
-];
+const supportedTemplates = Object.keys(templates);
 
 /**
  * @export
@@ -59,12 +54,12 @@ exports.checkNodeVersion = function (minimalNodeVersion) {
         reject(
           new Error(
             'You are running Node ' +
-            nodeVersion +
-            '.\n' +
-            'Create Express App requires Node ' +
-            minimalNodeVersion +
-            ' or higher. \n' +
-            'Please update your version of Node.'
+              nodeVersion +
+              '.\n' +
+              'Create Express App requires Node ' +
+              minimalNodeVersion +
+              ' or higher. \n' +
+              'Please update your version of Node.'
           )
         );
       }
@@ -131,7 +126,6 @@ exports.checkYarnVersion = function (minimalYarnVersion) {
   });
 };
 
-
 /**
  * @export
  * @desc Requirements that should be checked before installing.
@@ -145,7 +139,7 @@ exports.checkingEnvironment = function () {
     module.exports.checkYarnVersion(versionCompatibility.yarn),
     module.exports.checkNodeVersion(versionCompatibility.node),
   ]);
-}
+};
 
 /**
  * @export
@@ -188,7 +182,7 @@ exports.checkIfRepositoryIsCloned = function () {
  */
 exports.initGitRepository = function () {
   return new Promise((resolve, reject) => {
-    spinner.checkingEnv.stop()
+    spinner.checkingEnv.stop();
     exec('git init', (err, stdout) => {
       if (err) {
         reject(new TypeError(err));
@@ -220,6 +214,50 @@ exports.installPackages = function (directory, strategy) {
       }
     });
   });
+};
+
+/**
+ * @exports
+ * @desc Register Local or hosted templates.
+ * @function
+ * @name registerTemplate
+ * @returns {Promise}
+ */
+exports.registerTemplate = function () {
+  console.log();
+  return inquirer
+    .prompt(questions)
+    .then(({ name, link, description, version }) => {
+      // add supported template.
+      const data = JSON.stringify(
+        Object.assign(
+          {
+            [name]: {
+              name,
+              version,
+              link,
+              description,
+            },
+          },
+          templates
+        )
+      );
+      // make sure that all given url start with file or https?
+      if (/^(https?)/.test(link) === false)
+        throw new TypeError('URL not supported (:');
+
+      fs.writeFile(path.join(__dirname, 'template.json'), data, (err) => {
+        if (err) throw err;
+        console.log();
+        console.log('Template registed successfully ' + chalk.green('✓'));
+        console.log(
+          'Learn more ' +
+            chalk.underline.blue(
+              'https://getspooky.github.io/create-express-app/'
+            )
+        );
+      });
+    });
 };
 
 /**
@@ -265,9 +303,7 @@ exports.initExpressApp = function (appName, directory) {
 
   if (fs.existsSync(directory)) {
     console.log();
-    console.log(
-      chalk.red(appName + ' project already exists')
-    );
+    console.log(chalk.red(appName + ' project already exists'));
     module.exports.killProcess();
   }
 
@@ -288,12 +324,14 @@ exports.initExpressApp = function (appName, directory) {
 exports.createExpressTemplate = function (directory) {
   console.log();
   return inquirer
-    .prompt([{
-      type: 'list',
-      name: 'template',
-      message: 'Please specify a template for the created project',
-      choices: supportedTemplates,
-    }, ])
+    .prompt([
+      {
+        type: 'list',
+        name: 'template',
+        message: 'Please specify a template for the created project',
+        choices: supportedTemplates,
+      },
+    ])
     .then((answers) => {
       let getTemplate = require('./template.json');
       return module.exports.getTemplateInstallPackage(
@@ -324,7 +362,7 @@ exports.getTemplateInstallPackage = function (template, dest, url) {
       reject(new TypeError('The given template does not exists!'));
     if (url.match(/^(https:\/\/github.com).+/) === null)
       reject(
-        new TypeError(url + ' should match format : ^(https:\/\/github.com).+')
+        new TypeError(url + ' should match format : ^(https://github.com).+')
       );
     // clone specific template from repository
     exec(`git clone -b ${template} ${url} ${dest}/`, (err, stdout) => {
