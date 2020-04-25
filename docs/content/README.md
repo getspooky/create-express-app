@@ -27,11 +27,12 @@ create-expressjs-app init my-project
 ```
 
 You will be prompted to pick a template.
-Supported template are :
+We ship two templates by default:
 
-- cra-template-es5
-- cra-template-es6
-- cra-template-typescript
+- `cra-template-es5`
+- `cra-template-es6`
+
+However, you can find many great community templates by searching for "cra-template-*" on github or npm.
 
 Each template comes with a basic `Jest` + `ESLint` setup.
 
@@ -106,6 +107,13 @@ You may also manually register templates by adding its `version` , `link` , `des
   }
 }
 ```
+
+or 
+
+```sh
+create-expressjs-app new template
+```
+You will be prompted to pick add information related to the template like `version`, `description`.
 
 # Testing
 
