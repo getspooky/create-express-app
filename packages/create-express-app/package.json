@@ -1,6 +1,6 @@
 {
   "name": "create-expressjs-app",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "Create Express application",
   "main": "index.js",
   "bin": {
@@ -12,7 +12,9 @@
     "directory": "packages/create-express-app"
   },
   "engines": {
-    "node": ">=8"
+    "npm": "3.6.0",
+    "yarn": "1.12.0",
+    "node": "8.1.0"
   },
   "bugs": {
     "url": "https://github.com/getspooky/create-express-app/issues"
