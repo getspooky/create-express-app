@@ -16,17 +16,16 @@ const inquirer = require('inquirer');
 const ora = require('ora');
 const questions = require('./questions');
 const templates = require('./template.json');
-const { exec } = require('child_process');
-const { _EMOJIS } = require('./interface');
+const {
+  exec
+} = require('child_process');
+const {
+  _EMOJIS
+} = require('./interface');
 const compareVersions = require('compare-versions');
 const validateProjectName = require('validate-npm-package-name');
-
 /* Check NPM , Yarn and Node Compatibility */
-const versionCompatibility = {
-  npm: '3.6.0',
-  yarn: '1.12.0',
-  node: '8.1.0',
-};
+const versionCompatibility = require('./node-npm-yarn-versions');
 
 var spinner = {
   project: ora(_EMOJIS.CLONE + ' Creating Project...'),
@@ -54,12 +53,12 @@ exports.checkNodeVersion = function (minimalNodeVersion) {
         reject(
           new Error(
             'You are running Node ' +
-              nodeVersion +
-              '.\n' +
-              'Create Express App requires Node ' +
-              minimalNodeVersion +
-              ' or higher. \n' +
-              'Please update your version of Node.'
+            nodeVersion +
+            '.\n' +
+            'Create Express App requires Node ' +
+            minimalNodeVersion +
+            ' or higher. \n' +
+            'Please update your version of Node.'
           )
         );
       }
@@ -135,9 +134,9 @@ exports.checkYarnVersion = function (minimalYarnVersion) {
  */
 exports.checkingEnvironment = function () {
   return Promise.all([
-    module.exports.checkNPMVersion(versionCompatibility.npm),
-    module.exports.checkYarnVersion(versionCompatibility.yarn),
-    module.exports.checkNodeVersion(versionCompatibility.node),
+    module.exports.checkNPMVersion(versionCompatibility.requiredNpmVersion),
+    module.exports.checkYarnVersion(versionCompatibility.requiredYarnVersion),
+    module.exports.checkNodeVersion(versionCompatibility.requiredNodeVersion),
   ]);
 };
 
@@ -227,11 +226,15 @@ exports.registerTemplate = function () {
   console.log();
   return inquirer
     .prompt(questions)
-    .then(({ name, link, description, version }) => {
+    .then(({
+      name,
+      link,
+      description,
+      version
+    }) => {
       // add supported template.
       const data = JSON.stringify(
-        Object.assign(
-          {
+        Object.assign({
             [name]: {
               name,
               version,
@@ -252,9 +255,9 @@ exports.registerTemplate = function () {
         console.log('Template registed successfully ' + chalk.green('✓'));
         console.log(
           'Learn more ' +
-            chalk.underline.blue(
-              'https://getspooky.github.io/create-express-app/'
-            )
+          chalk.underline.blue(
+            'https://getspooky.github.io/create-express-app/'
+          )
         );
       });
     });
@@ -324,14 +327,12 @@ exports.initExpressApp = function (appName, directory) {
 exports.createExpressTemplate = function (directory) {
   console.log();
   return inquirer
-    .prompt([
-      {
-        type: 'list',
-        name: 'template',
-        message: 'Please specify a template for the created project',
-        choices: supportedTemplates,
-      },
-    ])
+    .prompt([{
+      type: 'list',
+      name: 'template',
+      message: 'Please specify a template for the created project',
+      choices: supportedTemplates,
+    }, ])
     .then((answers) => {
       let getTemplate = require('./template.json');
       return module.exports.getTemplateInstallPackage(
