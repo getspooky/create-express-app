@@ -2,6 +2,18 @@
   "name": "create-expressjs-app",
   "version": "1.0.3",
   "description": "Create Express application",
+  "keywords": [
+    "express",
+    "create-react-app",
+    "framework",
+    "sinatra",
+    "web",
+    "rest",
+    "restful",
+    "router",
+    "app",
+    "api"
+  ],
   "main": "index.js",
   "bin": {
     "create-expressjs-app": "./index.js"
@@ -25,7 +37,9 @@
     "nickname": "getspooky",
     "email": "getspookydev@gmail.com"
   },
-  "contributors": [],
+  "contributors": [
+    "Yasser Ameur El Idrissi <getspookydev@gmail.com>"
+  ],
   "license": "MIT",
   "dependencies": {
     "cfonts": "^2.8.1",
