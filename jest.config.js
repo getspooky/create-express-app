@@ -15,5 +15,5 @@ module.exports = {
   moduleFileExtensions: ['js', 'jsx'],
   testPathIgnorePatterns: ['/(docsify|docs|node_modules)/'],
   collectCoverage: true,
-  coverageReporters: ['json', 'lcov'],
+  coverageReporters: ['json'],
 };
