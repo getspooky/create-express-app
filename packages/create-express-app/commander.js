@@ -92,7 +92,8 @@ program
     }
 
     // Cheking NPM , Yarn and Node versions.
-    checkingEnvironment()
+    
+    checkingEnvironment(action.use)
       .then(() =>
         initExpressApp(projectName, projectPath)
         .then(() =>
