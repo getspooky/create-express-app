@@ -133,23 +133,12 @@ exports.checkYarnVersion = function (minimalYarnVersion) {
  * @returns {Promise}
  */
 exports.checkingEnvironment = function (use) {
-  if(use === 'npm'){
-    return Promise.all([
-      module.exports.checkNPMVersion(versionCompatibility.requiredNpmVersion),
-      module.exports.checkNodeVersion(versionCompatibility.requiredNodeVersion),
-    ]);
-  }else if(use === 'yarn'){
-    return Promise.all([
-      module.exports.checkYarnVersion(versionCompatibility.requiredYarnVersion),
-      module.exports.checkYarnVersion(versionCompatibility.requiredYarnVersion),
-    ]);
-  } else{
-    return Promise.all([
-      module.exports.checkNPMVersion(versionCompatibility.requiredNpmVersion),
-      module.exports.checkYarnVersion(versionCompatibility.requiredYarnVersion),
-      module.exports.checkNodeVersion(versionCompatibility.requiredNodeVersion),
-    ]);
-  }
+  return Promise.all([
+    (use === 'npm'
+      ? module.exports.checkNPMVersion(versionCompatibility.requiredNpmVersion)
+      :  module.exports.checkYarnVersion(versionCompatibility.requiredYarnVersion)),
+    module.exports.checkNodeVersion(versionCompatibility.requiredNodeVersion),
+  ]);
 };
 
 /**
