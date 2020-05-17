@@ -1,8 +1,10 @@
 var path = require('path'),
   bodyParser = require('body-parser'),
   helmet = require('helmet'),
-  express = require('express');
+  express = require('express'),
+  doteEnv = require('dotenv').config();
 
+console.log('Welcome to '+ process.env.appName);
 // Create global app object
 const app = express();
 
